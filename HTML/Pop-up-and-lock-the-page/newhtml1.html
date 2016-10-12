@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="../jquery-1.7.2.js"></script>
+
+        <script type="text/javascript" >
+            function sp() {
+                var wwd = $(document).width();
+                var wgd = $(document).height();
+                $('body').prepend('<div id="suop"></div>');
+                $("#suop").css({
+                    'width': '' + wwd + 'px',
+                    'height': '' + wgd + 'px',
+                    'background-color': '#000000',
+                    'z-index': '111',
+                    'opacity': '0.5',
+                    'position': 'absolute',
+                    'top': '0px',
+                    'left': '0px'
+                });
+
+                if (confirm("是否解锁!")) {
+                    jp();
+                }
+            }
+            function jp() {
+                $("#suop").remove();
+                console.log("xxxxx");
+            }
+        </script>
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <a onclick="sp()">a</a>
+        <br>
+    </body>
+</html>
