@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <script src="../../jquery-1.4.2.min.js" type="text/javascript"></script>
+        <script language="javascript" type="text/javascript" src="My97CommonFile/WdatePicker.js"></script>
+        <script type="text/javascript">
+            function pickedGetdateval() {
+                console.log($(this).val());
+            }
+        </script>
+    </head>
+    <body>
+        <form action="receivingdata.php?r_data=1" method="post"> 
+            <input  name="datetime" type="text" id="s_datetime"  onfocus="WdatePicker({dateFmt: 'yyyy-M-d DD', readOnly: true, onpicked: pickedGetdateval})" class="Wdate"/>
+            <input  type="submit" value ="提1交" />
+        </form>
+    </body>
+</html>

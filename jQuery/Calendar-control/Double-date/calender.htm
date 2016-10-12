@@ -1,0 +1,233 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>日历控件（扩展版）</title>
+        <link href="calender/calendar-core.css" rel="stylesheet" type="text/css" />
+        <style>
+            body{font:12px/1.5 Tahoma;}
+            #setting{margin-bottom:10px;}
+            #setting input{margin:5px 10px 5px 0;}
+            #search{float:left;clear:both;margin:15px;}
+            #search .item{position:relative;float:left;clear:both;line-height:25px;margin-bottom:10px;}
+            #search .item label{float:left;}
+            #search .item input{float:left;width:179px;height:18px;color:#C1C1C1;line-height:18px;border:1px solid #CCC;font:12px/1.5 Tahoma;background:url(images/ico.png) no-repeat;border-color:#AFAFAF #DCDCDC #DCDCDC #AFAFAF;border-width:0 1px 1px 0;padding:3px;}
+            #search .item input.focus{color:#404040;width:180px;border:1px solid #85BEE5;padding:2px 2px 3px;}
+            #search .item span{position:absolute;color:#A1A1A1;top:5px;right:5px;height:15px;line-height:15px;overflow:hidden;background:url(images/ico.png) no-repeat;cursor:pointer;}
+            #search .item span.b-ico{padding-right:25px;background-position:right -108px;}
+            #search .item span.e-ico{padding-right:25px;background-position:right -78px;}
+        </style>
+        <script src="../../jquery-1.4.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#cfdate").change(function () {
+                    console.log('aaasssaa');
+
+                });
+                $("#cfdate").bind("change", function () {
+                    console.log('aaasssaa');
+
+                });
+                console.log('aaaaa');
+            });
+        </script>
+    </head>
+    <body>
+        <form id="search">
+            <div class="item">
+                <label>出发时间：</label>
+                <input type="text" id="cfdate" value="yyyy-mm-dd" autocomplete="off" readonly />
+                <span class="b-ico"></span>
+            </div>
+
+            <div class="item">
+                <label>返程时间：</label>
+                <input type="text" id="dddate" value="yyyy-mm-dd" autocomplete="off" readonly />
+                <span class="e-ico"></span>
+            </div>
+
+        </form>
+        <!--日历控件JS源码-->
+        <script src="calender/calendar-core.js" type="text/javascript"></script>
+        <script>
+            //公用方法
+            var _ = {
+                $: function (id) {
+                    return typeof id === "object" ? id : document.getElementById(id)
+                },
+                $$: function (tagName, oParent) {
+                    return (oParent || document).getElementsByTagName(tagName)
+                },
+                pageX: function (element) {
+                    return element.offsetLeft + (element.offsetParent ? arguments.callee(element.offsetParent) : 0)
+                },
+                pageY: function (element) {
+                    return element.offsetTop + (element.offsetParent ? arguments.callee(element.offsetParent) : 0)
+                },
+                on: function (element, type, handler) {
+                    element.addEventListener ? element.addEventListener(type, handler, false) : element.attachEvent("on" + type, function () {
+                        handler.apply(element, arguments)
+                    })
+                },
+                hasClass: function (element, className) {
+                    return new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className)
+                },
+                addClass: function (element, className) {
+                    var arr = element.className.split(/\s+/);
+                    this.hasClass(element, className) || arr.push(className);
+                    element.className = arr.join(" ").replace(/(^\s*)|(\s*$)/, "")
+                },
+                removeClass: function (element, className) {
+                    element.className = element.className.replace(new RegExp("(^|\\s)" + className + "(\\s|$)", "g"), "").split(/\s+/).join(" ")
+                },
+                siblings: function (element) {
+                    for (var arr = [], aEl = element.parentNode.children, i = aEl.length; i--; )
+                        element != aEl[i] && arr.push(aEl[i]);
+                    return arr
+                },
+                stopPropagation: function (e) {
+                    e = e || event;
+                    e.stopPropagation ? e.stopPropagation() : (e.cancelBubble = !0)
+                },
+                preventDefault: function (e) {
+                    e = e || event;
+                    e.preventDefault ? e.preventDefault() : (e.returnValue = !1)
+                },
+                indexOf: function (vArg, arr) {
+                    for (var i = arr.length; i--; ) {
+                        if (typeof vArg === "string" ? _.hasClass(arr[i].children[0] || arr[i], vArg) : vArg == arr[i])
+                            return i
+                    }
+                    return -1;
+                }
+            },
+            //获取表单
+            oSearch = _.$("search"),
+                    //获取日期输入框
+                    aInpText = _.$$("input", oSearch),
+                    //用新的扩展日历控件创建一个实例
+                    oCalendar = new TripCalendar({
+                        count: 2, //显示日历个数
+                        showBtn: !0, //显示功能按钮
+                        holiday: !0, //显示日特殊显示
+                        onSelectDay: fnSelectDay 	//选择日期回调
+                    }),
+                    oEl = oCalendar.container;
+
+            //将日历插入页面并将其隐藏
+            oCalendar.create().hide();
+
+            var oBeginText = _.$("cfdate");
+            var oEndText = _.$("dddate");
+            //为输入框添加事件
+            for (var i = aInpText.length; i--; ) {
+                //获取焦点
+                _.on(aInpText[i], "focus", fnFocus);
+
+                //点击事件
+                _.on(aInpText[i], "click", fnFocus);
+
+                //失去焦点
+                _.on(aInpText[i], "blur", fnBlur);
+
+                //键盘输入（输入框已设置只读, 暂时关闭此功能）
+                //_.on(aInpText[i], "keyup", checkValue);
+
+                //阻止事件冒泡
+                _.on(oEl, "click", _.stopPropagation);
+
+                //解决chorme, safari下focus时select失效
+                _.on(aInpText[i], "mouseup", _.preventDefault);
+            }
+
+            //获取焦点
+            function fnFocus(e) {
+                var t, l;
+
+                this.value = this.value == this.defaultValue ? "" : this.value;
+                this.className = "focus";
+                this.style.color = "#404040";
+
+                //记录输入框
+                oCalendar.currentElement = this;
+
+                this.select();
+
+                //如果是返回时间输入框, 修改将日历id, 主要为了使用返程时间样式
+                oEl.id = this.id == "dddate" ? "select-end" : oCalendar.id;
+
+                //显示日历
+                t = _.pageY(this) + this.offsetHeight - 1;
+                l = _.pageX(this);
+                oEl.style.position = "absolute";
+                oEl.style.top = t + "px";
+                oEl.style.left = l + "px";
+
+                checkValue();
+
+                oCalendar.show();
+
+                _.stopPropagation(e);
+            }
+
+
+
+            //检测input输入值
+            function checkValue() {
+                var oInput = oCalendar.currentElement;
+                sValue = oInput.value,
+                        reg = /-/g,
+                        iValue = sValue.replace(reg, ""),
+                        aValue = sValue.split(reg),
+                        oDate = new Date(aValue[0], aValue[1] - 1, aValue[2]);
+                //--------------------------------------------------------
+                if (iValue >= oCalendar.today.replace(reg, "")) {
+                    if (oInput == oBeginText)
+                        oCalendar.beginDay = sValue;
+                    else if (oInput == oEndText)
+                        oCalendar.endDay = sValue;
+                    oCalendar.Draw(oDate)
+                }
+                if (this.value == "")
+                    _.$$("span", this.parentNode)[0].innerHTML = "";
+            }
+            //鼠标移过显示选择出发时间与返回时间的范围
+            oEl.onmouseover = function (e) {
+                e = e || event;
+                var oTarget = e.target || e.srcElement,
+                        aEl = _.$$("a", oEl),
+                        iBegin = _.indexOf("begin", aEl),
+                        clearClass = function () {
+                            for (i = aEl.length; i--; )
+                                _.removeClass(aEl[i].children[0] || aEl[i], "hover")
+                        },
+                        i;
+                if (!oCalendar.beginDay)
+                    return;
+                oTarget.parentNode.tagName.toUpperCase() === "A" && (oTarget = oTarget.parentNode);
+                if (oTarget.tagName.toUpperCase() === "A") {
+                    var iNow = _.indexOf(oTarget, aEl);
+                    clearClass();
+                    for (i = iBegin + 1; i < iNow; i++)
+                        _.addClass(aEl[i].children[0] || aEl[i], "hover")
+                }
+                else {
+                    clearClass()
+                }
+            }
+
+            //关闭日历
+            _.on(document, "click", function (e) {
+                e = e || event;
+                var oTarget = e.target || e.srcElement;
+                switch (oTarget.className) {
+                    case "b-ico":
+                    case "e-ico":
+                        _.$$("input", oTarget.parentNode)[0].focus();
+                        return;
+                        break;
+                }
+                oCalendar.hide()
+            });
+        </script>
+    </body>
+</html>
