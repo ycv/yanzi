@@ -1,0 +1,1 @@
+[{"id":1,"pId":0,"name":"不限","open":false,"cid":"1","fid":"1"},{"id":2,"pId":0,"name":"保护开关","open":false,"cid":"635edb79-80fe-4569-8c5d-29874d8e97bd","fid":"1"},{"id":3,"pId":2,"name":"HJDCP数字控制保护开关","cid":"1b43bfbe-9bf2-4b0f-9ec0-5e7c5dcd60dd","pcid":"635edb79-80fe-4569-8c5d-29874d8e97bd","fid":"0"}]

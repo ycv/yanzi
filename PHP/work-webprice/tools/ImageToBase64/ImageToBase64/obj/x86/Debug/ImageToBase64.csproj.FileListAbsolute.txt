@@ -1,0 +1,9 @@
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\bin\Debug\ImageToBase64.exe
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\bin\Debug\ImageToBase64.pdb
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\obj\x86\Debug\ImageToBase64.Form1.resources
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\obj\x86\Debug\ImageToBase64.Properties.Resources.resources
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\obj\x86\Debug\GenerateResource.read.1.tlog
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\obj\x86\Debug\GenerateResource.write.1.tlog
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\obj\x86\Debug\ImageToBase64.exe
+F:\dq\mobile\tools\ImageToBase64\ImageToBase64\obj\x86\Debug\ImageToBase64.pdb

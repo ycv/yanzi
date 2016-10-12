@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>电小二客户端</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta http-equiv="x-rim-auto-match" content="none"> 
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="author" content="www.dq123.com" />
+		<meta name="copyright"  content="Copyright &copy;www.dq123.com 版权所有" />
+		<meta name="revisit-after"  content="1 days" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<link rel="apple-touch-icon-precomposed" href="http://www.dq123.com/webprice/images/touch-icon.png" >
+		<link rel="shortcut icon" type="image/x-icon" href="http://www.dq123.com/favicon.ico"/>
+		<link rel="bookmark" type="image/x-icon" href="http://www.dq123.com/favicon.ico"/>
+		<link rel="canonical" href="http://www.dq123.com/webprice/index.html#nocheck" />
+		<script type="text/javascript">
+			var scale = 1.0, ver = 1;
+			var navuag = window.navigator.userAgent.toLowerCase();
+			(function() {
+				if (navuag.match(/iphone/gi)) {
+					ver = 2;
+				}
+				else if (navuag.match(/msie/gi) || navuag.match(/trident/gi) || navuag.match(/firefox/gi)) {
+					ver = 3;
+				}
+				document.write('<meta name="viewport" content="initial-scale=' + scale + ', maximum-scale=' + scale +', minimum-scale=' + scale + ', user-scalable=no" />'+ '<link' + ' type="text/css" rel="styleSheet" href="css/index'+ver+'.css?v=dq201507221030"' + ' />');
+			})();
+		</script>
+	</head>
+	<body>
+		<!-- 搜索 -->
+		<header id="bar" class="bar">
+			<div class="search c-form-suggest" id="J_searchcomplete">
+				<div id="sb-box" class="sb-box">
+					<i class="icon-search text-icon">⌕</i>
+					<span id="searchtip">输入型号,查价格</span>
+				</div>
+			</div>
+			
+		</header>
+		<!-- 主页 -->
+		<div id="wrap">
+			<div id="scroller" class="scroller">
+				<!-- 搜索选项 -->
+				<section class="search-option">
+					<div class="more-content">
+						<div class="block-content">
+							<div class="block block-links">
+								<div class="block-group">
+									<span class="btnarea" data-index="0"><a class="btn element btn-weak" href="javascript:;"></a><br/>搜元件</span>
+									<span class="btnarea" data-index="1"><a class="btn series" href="javascript:;"></a><br/>搜系列</span>
+									<span class="btnarea" data-index="2"><a class="btn brand" href="javascript:;"></a><br/>搜品牌</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- 厂家 -->
+				<section id="factory"></section>
+				<!-- 页脚 -->
+				<footer class="footer c-footer ">
+					<section class="footer-t c-footer-t">
+						<p class="user-info c-user-info"><span></span><span></span></p>
+						<p class="gotop c-gotop"><a id="J_GoTop">top<b> </b></a></p>
+					</section>
+					<nav class="footer-l c-footer-l">
+						<a href="http://www.dq123.com/price/index.php" target="_blank">电脑版</a>
+					</nav>
+					<p class="copyright c-copyright">&#169; 2014 沪ICP备05019069号</p>
+				</footer>
+			</div>
+		</div>
+		<!-- 搜索页面 -->
+		<div id="searchpage" class="searchpage">
+			<div id="sp-bar" class="sp-bar">
+				<div id="sp-goback" class="sp-goback"><i class="text-icon icon-back"></i></div>
+				<div id="sp-title" class="sp-title">搜元件</div>
+			</div>
+			<div id="sp-input" class="sp-input">
+				<div class="sp">
+					<div class="sp-box">
+						<i class="icon-sp text-icon">⌕</i>
+						<input id="sp-text" type="text" autocomplete="off" name="q" placeholder="输型号,查价格" />
+						<input id="sf-text" class="none" type="text" autocomplete="off" name="q" placeholder="搜品牌" />
+						<i class="btn-reset text-icon"></i>
+					</div>
+				</div>
+				<div class="sp-btn">
+					<button id="sp-submit" class="sp-submit" type="submit">搜索</button>
+				</div>
+			</div>
+			<div id="sp-content" class="sp-content">
+				<div id="sp-top" class="sp-top none">
+					<div id="se-top" class="sp-ctop">
+						<b>热门搜索</b>
+						<span class="sp-li" cid="a17abd43-bed1-4de0-b50d-311e59e9e64b" data="100≌E≌4P≌75≌F≌" fname="施耐德电气" sname="EZD塑壳断路器(新产品)">EZD100E/4P 75 F</span>
+						<span class="sp-li" cid="752e2872-a5b9-484c-a81f-6a3c0b0a2ff3" data="T≌30≌G≌" fname="上海人民电器" sname="YT900系列注塑机型变频器">YT900T30G</span>
+						<div class="clear"></div>
+					</div>
+					<div id="ss-top" class="sp-ctop none">
+						<b>热门搜索</b>
+						<span class="sp-li" data="e12421fb-23d6-49c6-bdc9-5a9aadc049c2" fname="施耐德电气" sname="EZD塑壳断路器(新产品)">EV12S EP真空断路器</span>
+						<span class="sp-li" data="95912913-0b9a-4c2f-8745-6fae0423ff2e" fname="北京人民电器厂有限公司" sname="GM系列高电压直流塑壳断路器">GM LE系列漏电塑壳断路器</span>
+						<div class="clear"></div>
+					</div>
+					<div id="sf-top" class="sp-ctop none">
+						<b>热门搜索</b>
+						<span class="sp-li" data="5ccafeef-49f6-4515-9fb4-efcf15d5619b">施耐德电气(中国)</span>
+						<span class="sp-li" data="97589c5f-0221-4fc6-b65c-38f8677a8321">ABB（中国）有限公司</span>			
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div id="history" class="sp-autop">
+					<div class="scroller">
+						<ul id="historylist">
+						</ul>
+						<div id="sp-trash" class="sp-trash">
+							<a id="clearhistory"><i class="text-icon"></i>清除历史记录</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 系列 -->
+		<div id="leftCate" class="leftCate">
+			<div id="swipeTop" class="c-tcate">
+				<div id="swipeTopCont" class="c-tcate-cont">
+					<div id="swipeCont-1" class="c-tcate-cont-div searchgroup level">
+						<div id="f-title" class="c-tcate-title"><span id="f-name"></span>-系列</div>
+						<div id="swipeTree" style="position:relative;">
+							<div class="scroller seri">
+								<ul class="mtree" id="mTree">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="leftmask" style="display:none;"></div>
+		<!-- 索引 -->
+		<div id="sorter" style="display:none;"></div>
+		<!-- 选型 -->
+		<div id="selection" class="none">
+			<div id="elementTop" class="c-tcate">
+				<div id="se-bar" class="se-bar">
+					<div id="se-goback" class="se-goback"><i class="text-icon icon-back"></i></div>
+					<div class="se-bar-title">元件选型</div>
+					<span id="se-bar-home" class="se-bar-home"></span>
+				</div>
+				<div id="elementTopCont" class="c-tcate-cont">
+					<div id="elementCont-1" class="c-tcate-cont-div searchgroup level">
+						<div class="banners"><span id="FactName"></span> >> <span id="SeriesName"></span></div>
+						<div class="product">
+							<ul>
+								<li><span style="color:#2f6178;font-size:18px;" id="result_prodname"></span></li>
+								<li><span class="pricecss">￥<b id="price_i" class="price_i">0</b><b id="price_b" class="price_b">.00</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:14px;" id="fissuedate"></span></li>
+							</ul>
+						</div>
+						<div class="nTab">
+							<div class="TabTitle">
+								<div id="myTab">
+									<span class="active">本体</span>
+									<span class="normal">附件</span>
+									<span class="normal">明细</span>
+									<span class="normal">经销商</span>
+									<span class="normal">样本</span>
+								</div>
+								<div class="clear"></div>	
+							</div>
+							<div class="TabContent">
+								<div id="priceInfo" style="position:relative;background: #fff;">
+									<div class="scroller">
+										<div id="myTab_Content0" class="mytabcontent">
+											<div id="Part_MainProp"></div>
+											<div class="clear"></div>
+										</div>
+										<div id="myTab_Content1" class="mytabcontent" style="display:none;">
+											<div id="Part_CompT"></div>
+											<div id="q_comp_info"></div>
+											<div class="clear"></div>
+										</div>
+										<div id="myTab_Content2" class="mytabcontent" style="display:none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0" class="mingxi">
+												<thead>
+													<tr>
+														<th class="bujian_td_l">部件</th>
+														<th class="bujian_td_r">￥价格</th>
+													</tr>
+												</thead>
+												<tbody id="Part_pdetail"></tbody>
+											</table>
+										</div>
+										<div id="myTab_Content3" class="mytabcontent" style="display:none;">
+											<div id="supplist"></div>
+										</div>
+										<div id="myTab_Content4" class="mytabcontent" style="display:none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0" class="mingxi">
+												<thead>
+													<tr>
+														<th class="bujian_td_l">名称</th>
+														<th class="bujian_td_r">大小</th>
+													</tr>
+												</thead>
+												<tbody id="samplelist"></tbody>
+											</table>
+										</div>	
+									</div>
+								</div>										
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="selmask" style="display:none;"></div>
+		<!-- 搜索元件结果 -->
+		<div id="sresult" class="s-list">
+			<div id="erTop" class="erTop">
+				<div id="ser-bar" class="ser-bar">
+					<div class="sr-goback"><i class="text-icon icon-back"></i></div>
+					<div class="sr-bar-title">元件<span id="searchtitle" class="searchcount">"<span id="searchkw"></span>"(<span id="searchcount">0</span>)</span></div>
+					<span id="sr-bar-refresh" class="sr-bar-refresh"></span>
+					<span id="sr-bar-home" class="sr-bar-home"></span>
+				</div>
+				<div id="erTopCont">
+					<div id="searchele" style="position:relative;">
+						<div class="scroller">
+							<div id="e-content"></div>
+							<div id="epullUp" class="none">
+								<span class="pullUpIcon"><i>&nbsp;</i></span><span class="pullUpLabel">向上滑动加载更多...</span>
+							</div>
+							<div id="epullUpTip">
+								<span class="pullUpLabel">&nbsp;</span>
+							</div>
+						</div>
+					</div>
+					<div id="brand-mask" class="submenu-mask" style="height: 0px; top: 0px;">
+						<div class="sub-close">
+							<a href="javascript:;" class="close text-icon" id="sub-tab-close"></a>
+						</div>
+					</div>
+					<div id="downmenu" class="downmenu">
+						<div class="search-tab">
+							<span id="sales-model" class="model"><a href="javascript:void(0);">型号</a></span>
+							<span id="brand" class="brand state" submenu="brand-menu"><a href="javascript:void(0);" class="text-icon">品牌</a></span>
+							<span id="sales-price" class="price rowsort"><a href="javascript:void(0);">价格</a></span>
+						</div>
+						<div class="clear"></div>
+						<div id="sub-tab" class="sub-tab" style="display:none;">
+							
+							<div class="scroller">
+								
+								<ul class="filter-tab" id="brand-menu">
+									<li class="model"></li>
+									<li class="brand">
+										<ul id="factoryfilter" class="filter-con" class="show">
+											
+										</ul>
+									</li>
+									<li class="price"></li>
+								</ul>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div id="srTop" class="srTop">
+				<div id="ssr-bar" class="ssr-bar">
+					<div class="sr-goback"><i class="text-icon icon-back"></i></div>
+					<div class="sr-bar-title">系列</div>
+					<span id="ss-bar-refresh" class="sr-bar-refresh"></span>
+					<span id="ss-bar-home" class="sr-bar-home"></span>
+				</div>
+				<div id="srTopCont">
+					<div id="s-title" class="title-top"></div>
+					<div id="searchser" style="position:relative;">
+						<div class="scroller">
+							<div id="s-content"></div>
+							<div id="spullUp" class="none">
+								<span class="pullUpIcon"></span><span class="pullUpLabel">向上滑动加载更多...</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--厂家查询-->
+		<div id="ac_results" class="ac_results" style="position: absolute; width: 100%; height: 100%; top: 45px; left: 0px; display: none;">
+			<div id="scroller" class="scroller">
+			</div>
+		</div>
+		<!-- 提示 -->
+		<div class="action_panels" style="display:none;">
+			<div class="panel panel_share fix" id="panelShare" style="display: block;">
+				<div class="inner fix">
+					<a class="action_panel_close" href="#"><i class="iconfont">X</i></a>
+					<div class="copy_share">
+						<h3>提示</h3>
+						<input id="copyInput" type="text" class="txt"><br/>
+						<p class="btns fix" style="display:none;"><a href="#" class="general">全选</a></p>
+						<div class="info">
+							<div class="copy_share_tip">
+							<i class="caret"><i></i></i>复制下载地址到其他浏览器中下载
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="eleloading"></div>
+		<div id="loading">
+			<span></span>
+		</div>
+		<script type="text/javascript">
+			document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+			
+				window.shareData = {
+					"imgUrl": "http://www.dq123.com/webprice/images/touch-icon11.png",
+					"timeLineLink": "http://www.dq123.com/webprice/index.html?wxref=mp.weixin.qq.com",
+					"sendFriendLink": "http://www.dq123.com/webprice/index.html?wxref=mp.weixin.qq.com",
+					"weiboLink": "http://www.dq123.com/webprice/index.html?wxref=mp.weixin.qq.com",
+					"tTitle": "电气天下客户端",
+					"tContent": "选型、询价、查样本，么么哒~",
+					"fTitle": "电气天下客户端",
+					"fContent": "选型、询价、查样本，么么哒~",
+					"wContent": "选型、询价、查样本，么么哒~"
+				};
+
+				// 发送给好友
+				WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+					WeixinJSBridge.invoke('sendAppMessage', {
+						"img_url": window.shareData.imgUrl,
+						"img_width": "640",
+						"img_height": "640",
+						"link": window.shareData.sendFriendLink,
+						"desc": window.shareData.fContent,
+						"title": window.shareData.fTitle
+					}, function (res) {
+						//_report('send_msg', res.err_msg);
+					})
+				});
+
+				// 分享到朋友圈
+				WeixinJSBridge.on('menu:share:timeline', function (argv) {
+					WeixinJSBridge.invoke('shareTimeline', {
+						"img_url": window.shareData.imgUrl,
+						"img_width": "640",
+						"img_height": "640",
+						"link": window.shareData.timeLineLink,
+						"desc": window.shareData.tContent,
+						"title": window.shareData.tTitle
+					}, function (res) {
+						//_report('timeline', res.err_msg);
+					});
+				});
+
+				// 分享到微博
+				WeixinJSBridge.on('menu:share:weibo', function (argv) {
+					WeixinJSBridge.invoke('shareWeibo', {
+						"content": window.shareData.wContent,
+						"url": window.shareData.weiboLink,
+					}, function (res) {
+						//_report('weibo', res.err_msg);
+					});
+				});
+			}, false);
+			
+			(function() {
+				document.write('<scr' + 'ipt type="text/javascript" src="js/iscroll-lite.min.js?v=dq201506231043"></scr' + 'ipt>');
+				if (navuag.match(/msie/gi) || navuag.match(/trident/gi) || navuag.match(/firefox/gi)) {
+					document.write('<scr'+'ipt type="text/javascript" src="js/jquery.min.js?v=dq201506231043"></scr'+'ipt>');
+					document.write('<scr' + 'ipt type="text/javascript" src="js/index2.js?v=dq201507221030"></scr' + 'ipt>');
+				}
+				else{
+					document.write('<scr'+'ipt type="text/javascript" src="js/zepto.min.js?v=dq201506231043"></scr'+'ipt>');
+					document.write('<scr' + 'ipt type="text/javascript" src="js/index1.js?v=dq201507221030"></scr' + 'ipt>');
+				}
+				document.write('<scr' + 'ipt type="text/javascript" src="js/jszip.min.js?v=dq201507101501"></scr' + 'ipt>');
+				document.write('<scr' + 'ipt type="text/javascript" src="js/jszip-utils.min.js?v=dq201507101501"></scr' + 'ipt>');
+			})();
+		</script>
+		<iframe src="t.html?t=1437544720765" id="tongji" style="display: none;"></iframe>
+	</body>
+</html>

@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>抽奖申请</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta http-equiv="x-rim-auto-match" content="none"> 
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="author" content="www.dq123.com" />
+		<meta name="copyright"  content="Copyright &copy;www.dq123.com 版权所有" />
+		<meta name="revisit-after"  content="1 days" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<link rel="apple-touch-icon-precomposed" href="http://www.dq123.com/webprice/images/touch-icon.png" >
+		<link rel="shortcut icon" type="image/x-icon" href="http://www.dq123.com/favicon.ico"/>
+		<link rel="bookmark" type="image/x-icon" href="http://www.dq123.com/favicon.ico"/>
+		<link rel="canonical" href="http://www.dq123.com/webprice/index.html#nocheck" />
+		<script type="text/javascript">
+			var scale = 1.0, ver = 1;
+			var navuag = window.navigator.userAgent.toLowerCase();
+			(function() {
+				if (navuag.match(/iphone/gi)) {
+					ver = 2;
+				}
+				else if (navuag.match(/msie/gi) || navuag.match(/trident/gi) || navuag.match(/firefox/gi)) {
+					ver = 3;
+				}
+				document.write('<meta name="viewport" content="initial-scale=' + scale + ', maximum-scale=' + scale +', minimum-scale=' + scale + ', user-scalable=no" />'+ '<link' + ' type="text/css" rel="styleSheet" href="css/lotterydraw'+ver+'.min.css?v=dq201506301659"' + ' />');
+			})();
+		</script>
+	</head>
+	<body>
+		<header class="bar">
+		  <img src="images/headers.jpg" width="100%" />
+		</header>
+		<!-- 主页 -->
+		<div class="wrap">
+			<div class="panel">
+				<div class="p-border">
+					<div class="p-titlered">填写信息</div>
+						<div class="form-content">
+							<ul>
+								<li>
+									<span><b>手机：</b></span>
+									<span><input type="text" id="phone" class="form_input"></span>
+								</li>
+								<li>
+									<span><b>姓名：</b></span>
+									<span><input type="text" id="surname" class="form_input"></span>
+								</li>
+								<li>
+									<div class="chk-title">
+										<span><b>您是：</b></span>
+									</div>
+									<div class="chk-content">
+										<span><input name="identity" type="checkbox" value="0">设计师</span>
+										<span><input name="identity" type="checkbox" value="1">工程师</span><br/>
+										<span><input name="identity" type="checkbox" value="2">报价达人</span>
+										<span><input name="identity" type="checkbox" value="3">采购达人</span><br/>
+										<span><input name="identity" type="checkbox" value="4">店掌柜</span>
+									</div>
+									<div class="clear"></div>
+								</li>
+							</ul>
+						</div>
+					<div class="sub"><input type="button" id="btn" class="btn" value="提&nbsp;&nbsp;交" /></div>
+				</div>
+			</div>
+			<div class="panel">
+				<div class="p-border">
+					<div class="p-title">奖项设置</div>
+					<div class="set-content">
+						<ul>
+							<li>一等奖：ipad mini<span>(<font>1</font>个)</span></li>
+							<li>二等奖：kindle 2<span>(<font>3</font>个)</span></li>
+							<li>三等奖：无线鼠标<span>(<font>5</font>个)</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="panel">
+				<div class="p-border">
+					<div class="p-title">活动内容</div>
+					<div class="act-content">
+						<ul>
+							<li>关注“<b>利驰电小二</b>”公众号，填写个人信息，可参加赢Ipad抽奖活动。</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="loading">
+			<span></span>
+		</div>
+		<script type="text/javascript">
+			document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+			
+				window.shareData = {
+					"imgUrl": "http://www.dq123.com/webprice/images/touch-icon11.png",
+					"timeLineLink": "http://www.dq123.com/webprice/index.html?wxref=mp.weixin.qq.com",
+					"sendFriendLink": "http://www.dq123.com/webprice/index.html?wxref=mp.weixin.qq.com",
+					"weiboLink": "http://www.dq123.com/webprice/index.html?wxref=mp.weixin.qq.com",
+					"tTitle": "电气天下客户端",
+					"tContent": "选型、询价、查样本，么么哒~",
+					"fTitle": "电气天下客户端",
+					"fContent": "选型、询价、查样本，么么哒~",
+					"wContent": "选型、询价、查样本，么么哒~"
+				};
+
+				// 发送给好友
+				WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+					WeixinJSBridge.invoke('sendAppMessage', {
+						"img_url": window.shareData.imgUrl,
+						"img_width": "640",
+						"img_height": "640",
+						"link": window.shareData.sendFriendLink,
+						"desc": window.shareData.fContent,
+						"title": window.shareData.fTitle
+					}, function (res) {
+						//_report('send_msg', res.err_msg);
+					})
+				});
+
+				// 分享到朋友圈
+				WeixinJSBridge.on('menu:share:timeline', function (argv) {
+					WeixinJSBridge.invoke('shareTimeline', {
+						"img_url": window.shareData.imgUrl,
+						"img_width": "640",
+						"img_height": "640",
+						"link": window.shareData.timeLineLink,
+						"desc": window.shareData.tContent,
+						"title": window.shareData.tTitle
+					}, function (res) {
+						//_report('timeline', res.err_msg);
+					});
+				});
+
+				// 分享到微博
+				WeixinJSBridge.on('menu:share:weibo', function (argv) {
+					WeixinJSBridge.invoke('shareWeibo', {
+						"content": window.shareData.wContent,
+						"url": window.shareData.weiboLink,
+					}, function (res) {
+						//_report('weibo', res.err_msg);
+					});
+				});
+			}, false);
+			
+			(function() {
+				if (navuag.match(/msie/gi) || navuag.match(/trident/gi) || navuag.match(/firefox/gi)) {
+					document.write('<scr'+'ipt type="text/javascript" src="js/jquery.min.js?v=dq201506231043"></scr'+'ipt>');
+					document.write('<scr' + 'ipt type="text/javascript" src="js/lotterydraw2.min.js?v=dq201506301659"></scr' + 'ipt>');
+				}
+				else{
+					document.write('<scr'+'ipt type="text/javascript" src="js/zepto.min.js?v=dq201506231043"></scr'+'ipt>');
+					document.write('<scr' + 'ipt type="text/javascript" src="js/lotterydraw1.min.js?v=dq201506301659"></scr' + 'ipt>');
+				}
+			})();
+		</script>
+	</body>
+</html>
