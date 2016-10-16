@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> 
+<html> 
+    <head> 
+        <title>zhezhaoceng.html</title> 
+
+        <meta http-equiv="keywords" content="keyword1,keyword2,keyword3"> 
+        <meta http-equiv="description" content="this is my page"> 
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+
+        <!--<link rel="stylesheet" type="text/css" href="./styles.css">--> 
+        <script type="text/javascript" src="../jquery.min.js"></script>
+        <script type="text/javascript" src="jquery.alerts.js"></script>
+        <style>
+            #popup_container {font-family: Arial, sans-serif;font-size: 12px;min-width: 300px;max-width: 600px;background:#FFF;border:solid 5px #999;color:#000;-moz-border-radius:5px;-webkit-border-radius: 5px;border-radius: 5px;}
+            #popup_title {font-size:14px;font-weight:bold;text-align:center;line-height:1.75em;color:#666; border: solid 1px #FFF;border-bottom: solid 1px #999;cursor: default;padding:0em;margin:0em auto;}
+            #popup_content {padding: 1em 1.75em;margin: 0em;}
+            #popup_message {padding-left: 48px;}
+            #popup_panel {text-align: center;margin:1em 0em 0em 1em;}
+            #popup_prompt {margin:.5em 0em;} 
+        </style> 
+        <script type="text/javascript">
+            $("#alert_button").click(function () {
+                jAlert('这是一个可自定义样式的警告对话框', '警告对话框');
+            });
+
+            $("#confirm_button").click(function () {
+                jConfirm('你确定这么做吗?', '确认对话框', function (r) {
+                    jAlert('是否确定 ' + r, '确定内容');
+                });
+            });
+
+            $("#prompt_button").click(function () {
+                jPrompt('输入字符:', '这里是默认值', '带输入框的提示框', function (r) {
+                    if (r) {
+                        alert('你输入的是 ' + r)
+                    }
+                    ;
+                });
+            });
+
+        </script> 
+    </head> 
+
+    <body> 
+        <div id="Con" class="ConDiv">
+
+            <fieldset>
+                <legend>警告提示框（Alert）</legend>
+                <pre>            $("#alert_button").click( function() {
+            jAlert('这是一个可自定义样式的警告对话框', '警告对话框');
+        });
+                </pre>
+                <p>
+                    <input id="alert_button" type="button" value="警告提示框">
+                </p>
+            </fieldset>    
+            <script language="javascript">
+                $(function () {
+                    $("#alert_button").click(function () {
+                        jAlert('这是一个可自定义样式的警告对话框', '警告对话框');
+                    });
+                });
+            </script>
+
+            <fieldset>
+                <legend>确认对话框（Confirm）</legend>
+                <pre>        $("#confirm_button").click( function(){
+                jConfirm('你确定这么做吗?', '确认对话框',function(r){
+                jAlert('是否确定 ' + r, '确定内容');
+            });
+        });
+                </pre>
+                <p>
+                    <input id="confirm_button" type="button" value="确认对话框">
+                </p>
+            </fieldset>
+            <script language="javascript">
+                $(function () {
+                    $("#confirm_button").click(function () {
+                        jConfirm('你确定这么做吗?', '确认对话框', function (r) {
+                            jAlert('是否确定 ' + r, '确定内容');
+                        });
+                    });
+                });
+            </script>
+
+            <fieldset>
+                <legend>带输入的提示框（Prompt）</legend>
+                <pre>            jPrompt('输入字符:', '这里是默认值', '带输入框的提示框', function(r) {
+                if( r ) alert('你输入的是 ' + r);
+            });
+                </pre>
+                <p>
+                    <input id="prompt_button" type="button" value="带输入框的提示框">
+                </p>
+            </fieldset>
+            <script language="javascript">
+                $(function () {
+                    $("#prompt_button").click(function () {
+                        jPrompt('输入字符:', '这里是默认值', '带输入框的提示框', function (r) {
+                            if (r) {
+                                alert('你输入的是 ' + r);
+                            }
+                        });
+                    });
+                });
+            </script>
+
+            <fieldset>
+                <legend>带HTML输出效果的对话框</legend>
+                <pre>            jAlert('你可以使用HTML标签，比如 <strong>加粗</strong>, <em>斜体</em>，和 <u>下划线</u>!');
+                </pre>
+                <p>
+                    <input id="alert_button_with_html" type="button" value="显示带有HTML标签效果的弹出框">
+                </p>
+            </fieldset>
+            <script language="javascript">
+                $(function () {
+                    $("#alert_button_with_html").click(function () {
+                        jAlert('你可以使用HTML标签，比如 <strong>加粗</strong>, <em>斜体</em>，和 <u>下划线</u>!');
+                    });
+                });
+            </script>
+        </div>
+    </body> 
+</html>

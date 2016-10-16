@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+
+        <!--<link rel="stylesheet" type="text/css" href="./styles.css">--> 
+        <script type="text/javascript" src="../jquery-1.12.3.min.js"></script>
+        <script type="text/javascript" src="jquery.alerts.min.js"></script>
+        <style>
+            #popup_container {font-family: Arial, sans-serif;font-size: 12px;min-width: 300px;max-width: 600px;background:#FFF;border:solid 5px #999;color:#000;-moz-border-radius:5px;-webkit-border-radius: 5px;border-radius: 5px;}
+            #popup_title {font-size:14px;font-weight:bold;text-align:center;line-height:1.75em;color:#666; border: solid 1px #FFF;border-bottom: solid 1px #999;cursor: default;padding:0em;margin:0em auto;}
+            #popup_content {padding: 1em 1.75em;margin: 0em;}
+            #popup_message {padding-left: 48px;}
+            #popup_panel {text-align: center;margin:1em 0em 0em 1em;}
+        </style> 
+        <script language="javascript">
+            jQuery.browser = {};
+            (function () {
+                jQuery.browser.msie = false;
+                jQuery.browser.version = 0;
+                if (navigator.userAgent.match(/MSIE ([0-9]+)./)) {
+                    jQuery.browser.msie = true;
+                    jQuery.browser.version = RegExp.$1;
+                }
+            })();
+            $(function () {
+                $("#alert_button").click(function () {
+                    jAlert('这是一个可自定义样式的警告对话框', '警告对话框');
+
+                    setTimeout(function () {
+                        $("#popup_ok").click();
+                    }, 1500);
+                    //popup_ok
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div>TODO write content</div> 
+        <input id="alert_button" type="button" value="警告提示框">
+
+
+    </body>
+</html>
