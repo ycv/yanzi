@@ -2,7 +2,7 @@
 
 header('Content-Type:text/html;Charset=utf-8');
 date_default_timezone_set('Asia/Shanghai');
-require_once './PHPExcel/Classes/PHPExcel.php';
+require_once '../Third/PHPExcel/Classes/PHPExcel.php';
 
 $filePath = 'tIP2.xlsx';
 $PHPExcel = new PHPExcel();
@@ -44,7 +44,7 @@ for ($currentRow = 1; $currentRow <= $allRow; $currentRow++) {
 
 
 
- 
+
 $i = 2;
 //echo "<pre>";var_dump($data);die;
 $objPHPExcel = new PHPExcel();

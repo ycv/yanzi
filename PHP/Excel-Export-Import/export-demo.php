@@ -1,7 +1,7 @@
 <?php
 
 date_default_timezone_set('Asia/Shanghai');
-require_once './PHPExcel/Classes/PHPExcel.php';
+require_once '../Third/PHPExcel/Classes/PHPExcel.php';
 $data = array(
     0 => array(
         'id' => 1001,
@@ -47,9 +47,11 @@ $objPHPExcel->setActiveSheetIndex(0)
 
 $i = 2;
 
- 
-//echo "<pre>";var_dump($data);die;
- 
+
+echo "<pre>";
+var_dump($data);
+die;
+
 
 foreach ($data as $k => $v) {
     $objPHPExcel->setActiveSheetIndex(0)
