@@ -24,6 +24,10 @@ $allColumn = $currentSheet->getHighestColumn();
 $allRow = $currentSheet->getHighestRow();
 $data = array();
 
+
+//echo "<pre>";var_dump($allRow);die;
+
+
 /* * 从第二行开始输出，因为excel表中第一行为列名 */
 for ($currentRow = 1; $currentRow <= $allRow; $currentRow++) {
     /*     * 从第A列开始输出 */
@@ -40,7 +44,7 @@ for ($currentRow = 1; $currentRow <= $allRow; $currentRow++) {
 
 
 
-
+ 
 $i = 2;
 //echo "<pre>";var_dump($data);die;
 $objPHPExcel = new PHPExcel();

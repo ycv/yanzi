@@ -46,6 +46,11 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('D1', '地址');
 
 $i = 2;
+
+ 
+//echo "<pre>";var_dump($data);die;
+ 
+
 foreach ($data as $k => $v) {
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A' . $i, $v['id'])
