@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ECharts</title>
+        <style>
+            .dn{
+                display:none;
+            }
+            .divcss5-1 {
+                z-index: 10;
+                border: 1px solid rgb(204, 204, 204);
+                left: 900px;
+                top: 100px;
+                width: 400px;
+                height: 540px;
+                position: absolute;
+                padding: 0 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="board" class="divcss5-1"></div>
+        <!--Step:1 为ECharts准备一个具备大小（宽高）的Dom-->
+        <!--<div id="main" style="height:500px;border:1px solid #ccc;padding:10px;"></div>-->
+        <div id="mainMap" style="height: 700px; border: 0px solid #ccc; padding: 10px;margin:25px 0;"></div>
+
+        <!--Step:2 引入echarts.js 
+        <script src="/js/echarts/dist/echarts-all.js"></script>-->
+
+        <script type="text/javascript" src="../../jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="echarts-all.js"></script>
+
+        <script type="text/javascript">
+            //var myChart = echarts.init(document.getElementById('mainMap'));
+            // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+            var option = {
+                backgroundColor: '#ffffff',
+                title: {
+                    text: '***网报进度',
+                    subtext: '(当前总数)',
+                    x: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{c}"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['注册情况统计']
+                },
+                dataRange: {
+                    x: 'left',
+                    y: 'bottom',
+                    //orient : 'horizontal',
+                    min: 0,
+                    max: 3000000,
+                    text: ['300万', '0'], // 文本，默认为数值文本
+                    splitNumber: 0
+                },
+                toolbox: {
+                    show: false,
+                },
+                roamController: {
+                    show: false,
+                },
+                series: [{
+                        name: '注册情况统计',
+                        type: 'map',
+                        mapType: 'china',
+                        mapLocation: {
+                            x: '100',
+                            y: 'center',
+                            height: '80%'
+                        },
+                        roam: false,
+                        showLegendSymbol: false,
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 1,
+                                borderColor: 'black',
+                                color: 'grey',
+                                label: {
+                                    show: true,
+                                    textStyle: {
+                                        color: "black",
+                                        fontWeight: "bold"
+                                    }
+                                }
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true
+                                }
+                            }
+                        },
+                        data: [],
+                        geoCoord: {
+                            "海门": [121.15, 31.89],
+                            "北京": [116.46, 39.92]
+                        }
+                    }]
+            };
+            //myChart.setOption(option);
+            var mapDiv = document.getElementById('mainMap');
+            var myChart = echarts.init(mapDiv);
+            myChart.showLoading({
+                text: '正在努力的读取数据中2...', //loading话术
+            });
+            function getTotal() {
+                $.getJSON("newEmptyPHP_001.php",
+                        {xllb: '20'},
+                        function (json) {
+                            console.log('sssss');
+                            return false;
+                            var mapChart = echarts.init(mapDiv);
+                            var myOption = option;
+                            var cntAll = 0;
+                            for (var i = 0; i < json.length; i++) {
+                                cntAll += json[i].value;
+                            }
+                            myOption.title.subtext = "(当前总数" + cntAll + ")";
+                            //var series = myChart.getSeries();
+                            myOption.series[0].data = json;
+                            //myChart.setSeries(series);
+                            mapChart.setOption(myOption, true);
+                            //console.log(json);
+                        }
+                );
+            }
+            var index = 0;
+            function addMsg() {
+                $.getJSON("newEmptyPHP_001.php",
+                        {xllb: '2', start: index},
+                        function (json) {
+
+                            if (json.length > 0) {
+                                console.log(json);
+                                var msg = json.msg;
+                                var $board = $("#board");
+                                var $ps = $board.find("p");
+                                if ($ps.size() > 13) {
+                                    var $lastP = $ps.last();
+                                    $lastP.hide("slow");
+                                    $lastP.remove();
+                                    //console.log("已满");
+                                }
+                                 console.log('aa');
+                                var p = $("<p class='dn'>" + msg + "</p>");
+                                $board.prepend(p);
+                                p.slideDown("slow");
+                                index++;
+                            }
+                        }
+                );
+            }
+            setInterval("addMsg()", 3000);
+            //  setInterval("getTotal()", 5000);
+            //getTotal(myChart);
+        </script>
+    </body>
+</html>
