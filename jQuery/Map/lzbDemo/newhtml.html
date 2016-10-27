@@ -37,7 +37,7 @@
             // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
             var option = {
                 backgroundColor: '#ffffff',
-                title: {
+                title : {
                     text: '***网报进度',
                     subtext: '(当前总数)',
                     x: 'center'
@@ -112,48 +112,48 @@
             function getTotal() {
                 $.getJSON("newEmptyPHP_001.php",
                         {xllb: '20'},
-                        function (json) {
-                            console.log('sssss');
-                            return false;
-                            var mapChart = echarts.init(mapDiv);
-                            var myOption = option;
-                            var cntAll = 0;
-                            for (var i = 0; i < json.length; i++) {
-                                cntAll += json[i].value;
-                            }
-                            myOption.title.subtext = "(当前总数" + cntAll + ")";
-                            //var series = myChart.getSeries();
-                            myOption.series[0].data = json;
-                            //myChart.setSeries(series);
-                            mapChart.setOption(myOption, true);
-                            //console.log(json);
-                        }
+                function (json) {
+                    console.log('sssss');
+                    return false;
+                    var mapChart = echarts.init(mapDiv);
+                    var myOption = option;
+                    var cntAll = 0;
+                    for (var i = 0; i < json.length; i++) {
+                        cntAll += json[i].value;
+                    }
+                    myOption.title.subtext = "(当前总数" + cntAll + ")";
+                    //var series = myChart.getSeries();
+                    myOption.series[0].data = json;
+                    //myChart.setSeries(series);
+                    mapChart.setOption(myOption, true);
+                    //console.log(json);
+                }
                 );
             }
             var index = 0;
             function addMsg() {
                 $.getJSON("newEmptyPHP_001.php",
                         {xllb: '2', start: index},
-                        function (json) {
+                function (json) {
 
-                            if (json.length > 0) {
-                                console.log(json);
-                                var msg = json.msg;
-                                var $board = $("#board");
-                                var $ps = $board.find("p");
-                                if ($ps.size() > 13) {
-                                    var $lastP = $ps.last();
-                                    $lastP.hide("slow");
-                                    $lastP.remove();
-                                    //console.log("已满");
-                                }
-                                 console.log('aa');
-                                var p = $("<p class='dn'>" + msg + "</p>");
-                                $board.prepend(p);
-                                p.slideDown("slow");
-                                index++;
-                            }
+                    if (json.length > 0) {
+                        console.log(json);
+                        var msg = json.msg;
+                        var $board = $("#board");
+                        var $ps = $board.find("p");
+                        if ($ps.size() > 13) {
+                            var $lastP = $ps.last();
+                            $lastP.hide("slow");
+                            $lastP.remove();
+                            //console.log("已满");
                         }
+                        console.log('aa');
+                        var p = $("<p class='dn'>" + msg + "</p>");
+                        $board.prepend(p);
+                        p.slideDown("slow");
+                        index++;
+                    }
+                }
                 );
             }
             setInterval("addMsg()", 3000);
@@ -162,3 +162,15 @@
         </script>
     </body>
 </html>
+
+
+
+
+
+
+
+
+roamController:
+showLegendSymbol:
+animation
+geoCoord:
