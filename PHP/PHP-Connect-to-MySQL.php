@@ -1,32 +1,10 @@
 <?php
 
-/*
-  include_once '../../../PHP/Chinese-characters-to-Pinyin-Class/Pinyin.php';
-  echo Pinyin::getPinyin("腾讯网QQ");
-  echo "<hr>";
-  echo Pinyin::getShortPinyin("腾讯网QQ");
-  echo "<hr>";
- */
-$setd = array();
-if ($_GET['xllb'] == "2") {
-    $sdatas = getdatasmsql();
-    for ($i = 0; $i < count($sdatas); $i++) {
-        $setd[$i]["name"] = $sdatas[$i];
-        $setd[$i]["value"] = ($i + 1) * 97;
-        $setd[$i]["selected"] = false;
-    }
-    //print_r($setd);die;
-}
-if ($_GET['xllb'] == "1") {
-    
-}
-
-$json ['retval'] = true;
-$json ['msg'] = "aaaaaaaaaadads";
-$json ['data'] = $setd;
-
-echo json_encode($json);
-die();
+echo ";;<hr><pre>";
+//$d_mysqli = getdatas();
+$d_pdo = getdatasmsql();
+var_dump($d_pdo);
+die;
 
 //mysqli
 function getdatas() {
