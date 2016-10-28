@@ -81,6 +81,12 @@
                                 trigger: 'item',
                                 //formatter: '{b}',
                                 formatter: function (a) {
+                                    if (typeof a[5].nameall === "undefined") {
+                                        a[5].nameall = a[5].name;
+                                    }
+                                    if (a[2] === "-") {
+                                        a[2] = 0;
+                                    }
                                     return  a[5].nameall + "<br>访客人数: " + a[2];
                                 }
                             },
