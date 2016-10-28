@@ -112,55 +112,92 @@
             function getTotal() {
                 $.getJSON("newEmptyPHP_001.php",
                         {xllb: '20'},
-                        function (json) {
-                            console.log('sssss');
-                            return false;
-                            var mapChart = echarts.init(mapDiv);
-                            var myOption = option;
-                            var cntAll = 0;
-                            for (var i = 0; i < json.length; i++) {
-                                cntAll += json[i].value;
-                            }
-                            myOption.title.subtext = "(当前总数" + cntAll + ")";
-                            //var series = myChart.getSeries();
-                            myOption.series[0].data = json;
-                            //myChart.setSeries(series);
-                            mapChart.setOption(myOption, true);
-                            //console.log(json);
-                        }
+                function (json) {
+                    console.log('sssss');
+                    return false;
+                    var mapChart = echarts.init(mapDiv);
+                    var myOption = option;
+                    var cntAll = 0;
+                    for (var i = 0; i < json.length; i++) {
+                        cntAll += json[i].value;
+                    }
+                    myOption.title.subtext = "(当前总数" + cntAll + ")";
+                    //var series = myChart.getSeries();
+                    myOption.series[0].data = json;
+                    //myChart.setSeries(series);
+                    mapChart.setOption(myOption, true);
+                    //console.log(json);
+                }
                 );
             }
             var index = 0;
             function addMsg() {
                 $.getJSON("newEmptyPHP_001.php",
                         {xllb: '2', start: index},
-                        function (json) {
+                function (json) {
 
-                            if (json.length > 0) {
-                                console.log(json);
-                                var msg = json.msg;
-                                var $board = $("#board");
-                                var $ps = $board.find("p");
-                                if ($ps.size() > 13) {
-                                    var $lastP = $ps.last();
-                                    $lastP.hide("slow");
-                                    $lastP.remove();
-                                    //console.log("已满");
-                                }
-                                console.log('aa');
-                                var p = $("<p class='dn'>" + msg + "</p>");
-                                $board.prepend(p);
-                                p.slideDown("slow");
-                                index++;
-                            }
+                    if (json.length > 0) {
+                        console.log(json);
+                        var msg = json.msg;
+                        var $board = $("#board");
+                        var $ps = $board.find("p");
+                        if ($ps.size() > 13) {
+                            var $lastP = $ps.last();
+                            $lastP.hide("slow");
+                            $lastP.remove();
+                            //console.log("已满");
                         }
+                        console.log('aa');
+                        var p = $("<p class='dn'>" + msg + "</p>");
+                        $board.prepend(p);
+                        p.slideDown("slow");
+                        index++;
+                    }
+                }
                 );
             }
             setInterval("addMsg()", 3000);
             //  setInterval("getTotal()", 5000);
             //getTotal(myChart);
 
-
+            /*
+             data: [
+             {name: '北京', selected: false},
+             {name: '天津', selected: false},
+             {name: '上海', selected: false},
+             {name: '重庆', selected: false},
+             {name: '河北', selected: false},
+             {name: '河南', selected: false},
+             {name: '云南', selected: false},
+             {name: '辽宁', selected: false},
+             {name: '黑龙江', selected: false},
+             {name: '湖南', selected: false},
+             {name: '安徽', selected: false},
+             {name: '山东', selected: false},
+             {name: '新疆', selected: false},
+             {name: '江苏', selected: false},
+             {name: '浙江', selected: false},
+             {name: '江西', selected: false},
+             {name: '湖北', selected: false},
+             {name: '广西', selected: false},
+             {name: '甘肃', selected: false},
+             {name: '山西', selected: false},
+             {name: '内蒙古', selected: false},
+             {name: '陕西', selected: false},
+             {name: '吉林', selected: false},
+             {name: '福建', selected: false},
+             {name: '贵州', selected: false},
+             {name: '广东', selected: false},
+             {name: '青海', selected: false},
+             {name: '西藏', selected: false},
+             {name: '四川', selected: false},
+             {name: '宁夏', selected: false},
+             {name: '海南', selected: false},
+             {name: '台湾', selected: false},
+             {name: '香港', selected: false},
+             {name: '澳门', selected: false}
+             ]
+             */
 
             /*
              //单击省份事件
@@ -580,6 +617,196 @@
              option.dataRange = {
              };
              
+             */
+
+
+
+
+
+
+
+
+            /**
+             * 2016-10-28 start
+             *   //全国地图
+             var myChart = echarts.init(document.getElementById('mapmain'));
+             //省地图
+             var provinceChart = echarts.init(document.getElementById('provinceMap'));
+             
+             //全国地图
+             function successMapDatas(mds) {
+             quanguoMap = mds.data;
+             option = {
+             backgroundColor: 'gray', //div 背景色
+             title: {
+             text: '标题一',
+             subtext: '(标题二)', //副标题
+             x: 'center'//位置
+             },
+             tooltip: {
+             trigger: 'item',
+             formatter: "{c}"
+             },
+             legend: {
+             orient: 'vertical',
+             x: 'left',
+             data: ['全国地图']
+             },
+             
+             辅助线开关 等 图标
+             toolbox: {
+             show: true,
+             orient: 'vertical',
+             x: 'right',
+             y: 'center',
+             feature: {
+             mark: {show: true},
+             dataView: {show: true, readOnly: false}
+             }
+             },
+             
+             dataRange: {
+             x: 'left',
+             y: 'bottom',
+             
+             orient: 'horizontal', //图柱 横着
+             
+             min: 0,
+             max: 4000,
+             text: ['4000', '0'], // 文本，默认为数值文本
+             splitNumber: 0
+             },
+             //缩放漫游组件，仅对地图有效
+             roamController: {
+             show: false,
+             x: 'right',
+             mapTypeControl: {
+             'china': true
+             }
+             },
+             series: [{
+             name: '全国',
+             type: 'map',
+             mapType: 'china',
+             showLegendSymbol: true, //显示图例颜色标识（系列标识的小圆点），存在 legend 时生效
+             tooltip: {
+             trigger: 'item',
+             //formatter: '{b}',
+             formatter: function (a) {
+             return  a[5].nameall + "<br>访客人数: " + a[2];
+             }
+             },
+             mapLocation: {//显示主地图的位置及其大小
+             x: 'center',
+             y: 'center',
+             width: '100%'
+             },
+             roam: false, //地图不允许拖动
+             selectedMode: 'single',
+             itemStyle: {
+             normal: {
+             label: {show: true},
+             borderWidth: 1, //省份的边框宽度
+             borderColor: '#f60', //省份的边框颜色
+             color: '#ece2df', //地图背景颜色
+             areaStyle: {color: '#f60'}//设置地图颜色
+             },
+             emphasis: {label: {show: true}}
+             },
+             data: quanguoMap
+             }],
+             animation: false//是否启用图表初始化动画，默认开启，建议IE8-关闭
+             };
+             myChart.setOption(option, true); //显示国家地图
+             //单击省份事件
+             myChart.on(echarts.config.EVENT.MAP_SELECTED, function (param) {
+             var selected = param.selected;
+             var selectedProvince;
+             var name;
+             
+             console.log(option.target);
+             console.log(param);
+             return false;
+             
+             for (var i = 0, l = option.series[0].data.length; i < l; i++) {
+             name = option.series[0].data[i].name;
+             //表示 全国地图选中
+             //option.series[0].data[i].selected = selected[name];
+             
+             console.log(option.series[0].data[i]);
+             
+             if (selected[name]) {
+             selectedProvince = name;
+             }
+             }
+             if (typeof selectedProvince === 'undefined') {
+             return false;
+             }
+             
+             provinceMap(selectedProvince);
+             
+             });
+             //选择地级市的单击事件
+             myChart.on(echarts.config.EVENT.CLICK, function (param) {
+             var seriesName = param.seriesName;
+             if (seriesName.trim() === "访客人数" || seriesName.trim() === "") {
+             //由于全国地图和省地图都要触发这个事                                                                                                         件，所以要判断是省还是地级市
+             alert("xx" + param.name);//地级市的名字
+             }
+             });
+             myChart.hideLoading();
+             }
+             
+             //加载省地图
+             function provinceMap(selectedProvince) {
+             optionprovince = {
+             backgroundColor: 'green', //div 背景色
+             title: {
+             text: '省份详细地图',
+             subtext: '(标题二)', //副标题
+             x: 'center'//位置
+             },
+             tooltip: {
+             trigger: 'item',
+             formatter: "{c}"
+             },
+             legend: {
+             x: 'right',
+             data: ['访客人数']
+             },
+             dataRange: {
+             orient: 'horizontal',
+             x: 'right',
+             min: 0,
+             max: 1000,
+             color: ['orange', 'yellow'],
+             text: ['高', '低'], // 文本，默认为数值文本
+             splitNumber: 0
+             },
+             series: [{
+             name: '访客人数',
+             type: 'map',
+             mapType: selectedProvince,
+             itemStyle: {
+             normal: {label: {show: true}}, //没选择时候省份是否显示
+             emphasis: {label: {show: true}}//选择之后省份是否显示
+             },
+             mapLocation: {//显示子地图的位置及其大小
+             x: 'center',
+             y: 'center',
+             width: '100%'
+             },
+             roam: false, //地图不允许拖动
+             selectedMode: 'single',
+             data: []
+             }],
+             animation: false
+             };
+             //显示省地图
+             provinceChart.setOption(optionprovince, true);
+             }
+             
+             2016-10-28 end
              */
         </script>
     </body>

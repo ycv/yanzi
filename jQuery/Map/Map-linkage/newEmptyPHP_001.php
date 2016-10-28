@@ -1,21 +1,26 @@
 <?php
 
-/*
-  include_once '../../../PHP/Chinese-characters-to-Pinyin-Class/Pinyin.php';
-  echo Pinyin::getPinyin("腾讯网QQ");
-  echo "<hr>";
-  echo Pinyin::getShortPinyin("腾讯网QQ");
-  echo "<hr>";
- */
+header("Content-Type:text/html;charset=UTF-8");
 $setd = array();
+
 if ($_GET['xllb'] == "2") {
-    $sdatas = getdatasmsql();
-    for ($i = 0; $i < count($sdatas); $i++) {
-        $setd[$i]["name"] = $sdatas[$i];
-        $setd[$i]["value"] = ($i + 1) * 97;
-        $setd[$i]["selected"] = false;
+    //得到全部省 数据
+    $d_pdo = getPdatas();
+    //print_r($d_pdo);die;
+
+    foreach ($d_pdo as $key => $value) {
+        $setd[$key]["nameall"] = $value['provincename'];
+        if (strstr($value['provincename'], '黑龙江') || strstr($value['provincename'], '内蒙古')) {
+            //$value['provincename'] = str_replace("市", "", $value['provincename']);
+            $value['provincename'] = substr($value['provincename'], 0, 9);
+        } else {
+            $value['provincename'] = substr($value['provincename'], 0, 6);
+        }
+        $setd[$key]["name"] = $value['provincename'];
+        $setd[$key]["value"] = ($key + 1) * 97;
+        $setd[$key]["provinceID"] = $value['provinceID'];
+        $setd[$key]["selected"] = false;
     }
-    //print_r($setd);die;
 }
 if ($_GET['xllb'] == "1") {
     
@@ -28,39 +33,30 @@ $json ['data'] = $setd;
 echo json_encode($json);
 die();
 
-//mysqli
-function getdatas() {
+//得到全部省 数据
+function getPdatas() {
     $d = array();
-    //创建对象并打开连接，最后一个参数是选择的数据库名称
-    $mysqli = new mysqli('127.0.0.1', 'root', '111111', 'dq');
-    //检查连接是否成功
-    if (mysqli_connect_errno()) {
-        //注意mysqli_connect_error()新特性
-        die('Unable to connect!') . mysqli_connect_error();
+    //在操作sql
+    $sqltxt = "SELECT * FROM `hat_province` ";
+    $pdatas = getdatasmsql($sqltxt);
+    foreach ($pdatas as $k => $v) {
+        $d[$k]['provincename'] = $v["province"];
+        $d[$k]['provinceID'] = $v["provinceID"];
     }
-    $mysqli->set_charset("utf8");
-    $sqltxt = "SELECT * FROM `destoon_area_copy` WHERE `parentid` = 0 and areaid<50 ";
-    $result = $mysqli->query($sqltxt);
-    while ($row = $result->fetch_array()) {
-        $d[] = $row['areaname'];
-    }
-    /* 关闭连接 */
-    mysqli_close($mysqli);
     return $d;
 }
 
 //PDO
-function getdatasmsql() {
+function getdatasmsql($sqltxt) {
     $d = array();
     //连接数据库
-    $pdo = new PDO("mysql:host=127.0.0.1; dbname=dq", "root", "111111");
-    //在操作sql
-    $sqltxt = "SELECT * FROM `destoon_area_copy` WHERE `parentid` = 0 and areaid<50 ";
-    //使用查询语句
+    $pdo = new PDO("mysql:host=127.0.0.1; dbname=yanzi", "root", "111111");
+    $pdo->query("SET NAMES utf8");  // $_pdo->exec('SET NAMES utf8');  //设置数据库编码，两种方法都可以  
+    //操作sql 使用查询语句
     $sr = $pdo->query($sqltxt);
     //将查询的结果循环输出显示
     while ($row = $sr->fetch()) {
-        $d[] = $row['areaname'];
+        $d[] = $row;
     }
     return $d;
 }
