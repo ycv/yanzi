@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>lzbDemo-lzb.html</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
+        <script type="text/javascript" src="../../jquery-1.4.2.min.js"></script>
+        <script src="echarts/echarts-all.js"></script>
+    </head>
+    <body>
+        <div id="map" style="width: 50%; height: 500px; border: 2px solid red; padding: 4px;float: left;"></div>
+        <div id="provinceMap" style="width: 45%; height: 500px; border: 2px solid orange; padding: 4px;float: left;margin-left: 2px;"></div>
+
+        <script type="text/javascript">
+            var map = echarts.init(document.getElementById('map'));
+            $(function () {
+                var option = {
+                    title: {
+                        text: '年度异常统计地区图', //标题
+                        x: 'center'//位置
+                    },
+                    tooltip: {trigger: 'item'},
+                    legend: {
+                        orient: 'vertical', //位置水平或垂直
+                        x: 'left', //位置，left、center、right 
+                        data: ['统计值']
+                    },
+                    //数据区间
+                    dataRange: {
+                        min: 0, //最小值
+                        max: 1000, //最大值
+                        x: 'left', //位置             
+                        y: 'bottom', //位置 
+                        show: false, //是否可见 
+                        orient: 'horizontal', //位置水平或垂直 
+                        text: ['高', '低'],
+                        color: ['#1e90ff', '#f0ffff'], // 颜色
+                        calculable: true
+                    },
+                    series: [{
+                            name: '统计值',
+                            type: 'map', //图表类型
+                            mapType: 'china', //地图类型
+                            roam: false,
+                            itemStyle: {
+                                normal: {
+                                    label: {show: true},
+                                    areaStyle: {color: 'red'}
+                                },
+                                emphasis: {label: {show: true}}
+
+                            },
+                            //数值
+                            data: [
+                                {name: '北京', value: Math.round(Math.random() * 1000)},
+                                {name: '天津', value: Math.round(Math.random() * 1000)},
+                                {name: '河北', value: Math.round(Math.random() * 1000)},
+                                {name: '河南', value: Math.round(Math.random() * 1000)},
+                                {name: '云南', value: Math.round(Math.random() * 1000)},
+                                {name: '辽宁', value: Math.round(Math.random() * 1000)},
+                                {name: '黑龙江', value: Math.round(Math.random() * 1000)}
+                            ]
+                        }]
+                };
+                map.setOption(option);
+                //点击事件
+                map.on("click", function (event) {
+                    alert(event.name + event.value);
+                    console.log(event);
+                });
+            });
+        </script>
+    </body>
+</html>
