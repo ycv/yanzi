@@ -6,6 +6,7 @@ $setd = array();
 if ($_GET['xllb'] == "2") {
     //得到全部省 数据
     $d_pdo = getPdatas();
+    
     //print_r($d_pdo);die;
 
     foreach ($d_pdo as $key => $value) {
