@@ -2,11 +2,26 @@
 生成 1到3144 的随机数  包含1和 3144
 UPDATE  `yanzi`.`employees` SET  `addressID` = ROUND((3144-1) * RAND() + 1);
 --------------------------------------------------------------------------------------
-UPDATE `yanzi`.`employees` SET `employees`.`cityCode` = `hat_area`.`fatherid` from  
-`hat_area` left join  `employees` on `employees`.`addressID`=`hat_area`.`id`  
-WHERE `employees`.`id` = 2;
-UPDATE `yanzi`.`employees` SET `employees`.`cityCode` = `hat_area`.`fatherid` from  `employees` `hat_area` 
-WHERE  `employees`.`addressID`=`hat_area`.`id`  ADD  `employees`.`id` = 2;
+
+UPDATE与表关联更新
+
+
+UPDATE `yanzi`.`employees` SET `cityCode` = '211' WHERE `employees`.`id` = 2;
+
+
+UPDATE 
+	`employees` a 
+SET 
+	a.`cityCode` = (
+		SELECT 
+			b.fatherid 
+		FROM 
+			`hat_area` b 
+		WHERE 
+			b.id = a.addressID
+	) 
+WHERE 
+	a.id = 2
 --------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------
