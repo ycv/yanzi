@@ -3,12 +3,15 @@
 header("Content-Type:text/html;charset=UTF-8");
 $setd = array();
 
-if ($_GET['xllb'] == "2") {
+
+
+
+$pmaxnum = 0;
+if (isset($_GET['xllb']) && $_GET['xllb'] == "2") {
     //得到全部省 数据
     $d_pdo = getPdatas();
-    
-    //print_r($d_pdo);die;
 
+    $ff = 0;
     foreach ($d_pdo as $key => $value) {
         $setd[$key]["nameall"] = $value['provincename'];
         if (strstr($value['provincename'], '黑龙江') || strstr($value['provincename'], '内蒙古')) {
@@ -18,21 +21,64 @@ if ($_GET['xllb'] == "2") {
             $value['provincename'] = substr($value['provincename'], 0, 6);
         }
         $setd[$key]["name"] = $value['provincename'];
-        $setd[$key]["value"] = ($key + 1) * 97;
+
+        $cdatasbypid = getdatasmsql("SELECT COUNT(id) as num   FROM `employees` WHERE `provinceCode` = '" . $value['provinceID'] . "'");
+
+        //print_r($cdatasbypid[0]['num']);die;
+        //省 最大人数
+        $setd[$key]["value"] = $cdatasbypid[0]['num'];
+        if ($setd[$key]["value"] > $pmaxnum) {
+            $pmaxnum = $setd[$key]["value"];
+        }
+        //全国总人数
+        $ff+=$cdatasbypid[0]['num'];
+
         $setd[$key]["provinceID"] = $value['provinceID'];
         $setd[$key]["selected"] = false;
     }
-}
-if ($_GET['xllb'] == "1") {
-    
-}
+    //print_r($setd); die;
 
-$json ['retval'] = true;
-$json ['msg'] = "aaaaaaaaaadads";
-$json ['data'] = $setd;
+    $json ['retval'] = true;
+    $json ['pmaxnum'] = $pmaxnum + 2000;
+    $json ['data'] = $setd;
 
-echo json_encode($json);
-die();
+    echo json_encode($json);
+    die();
+}
+if (isset($_POST['xllb']) && $_POST['xllb'] === "3") {
+    //市 最大人数
+    $cmaxnum = 0;
+    //省总人数
+    $cCount = 0;
+
+    $cdatas = array();
+    //得到该省 市数据
+    //根据省ID得到 该省下市数据
+    $citydataspID = getdatasmsql("SELECT id,cityID,city  FROM `hat_city` WHERE `fatherID` = " . $_POST['provinceID']);
+    foreach ($citydataspID as $ckey => $cvalue) {
+        $cdatasbycid = getdatasmsql("SELECT COUNT(id) as num   FROM `employees` WHERE `cityCode` = '" . $cvalue['cityID'] . "'");
+        $cdatas[$ckey]["value"] = $cdatasbycid[0]['num'];
+        if ($cdatas[$ckey]["value"] > $cmaxnum) {
+            $cmaxnum = $cdatas[$ckey]["value"];
+        }
+        $cdatas[$ckey]["cityID"] = $cvalue['cityID'];
+        $cdatas[$ckey]["name"] = $cvalue['city'];
+        $cdatas[$ckey]["selected"] = false;
+        //省总人数
+        $cCount+=$cdatasbycid[0]['num'];
+    }
+
+    //echo $cCount;
+    //print_r($cdatas);
+    //die;
+
+    $json ['retval'] = true;
+    $json ['pmaxnum'] = $cCount + 1000;
+    $json ['data'] = $cdatas;
+
+    echo json_encode($json);
+    die();
+}
 
 //得到全部省 数据
 function getPdatas() {
