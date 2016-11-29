@@ -14,6 +14,7 @@
 
 
         <script type="text/javascript">
+            var mydate = new Date();
             function ajdatasline(settulinedatas, settulinetitle) {
                 option = {
                     tooltip: {
@@ -85,6 +86,12 @@
         <script>
             $(function () {
                 ddemo();
+                $("#weekbt").click(function () {
+                    $("#rq_selsetType_mord").val(1);
+                });
+                $("#daybt").click(function () {
+                    $("#rq_selsetType_mord").val(2);
+                });
             });
             var drp2;
             function ddemo() {
@@ -94,17 +101,43 @@
                 if (drp2.getDateRange().length > 0) {
                     var zhoustart = new Date(Math.min.apply(Math, drp2.getDateRange()));
                     var zhouend = new Date(Math.max.apply(Math, drp2.getDateRange()));
-                    console.log($.datepicker.formatDate("yy-mm-dd", zhoustart));
-                    console.log($.datepicker.formatDate("yy-mm-dd", zhouend));
+//                    console.log($.datepicker.formatDate("yy-mm-dd", zhoustart));
+//                    console.log($.datepicker.formatDate("yy-mm-dd", zhouend));
 
                     $(drp2.getDateRange()).each(function () {
                         //$.datepicker.formatDate("yy-mm-dd", this))
                     });
 
-                    var settulinedatas = [132, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210];
-                    var settulinetitle = ['FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-                    var map = echarts.init(document.getElementById('map'));
-                    map.setOption(ajdatasline(settulinedatas, settulinetitle));
+                    var settulinedatas = [];
+                    var settulinetitle = [];
+                    $.ajax({
+                        type: "POST",
+                        async: true, //必须为true
+                        url: "lzbtest01.php" + '?refresh=' + mydate.getTime(),
+                        timeout: 5e4,
+                        dataType: "json",
+                        data: {
+                            "zhoustart": $.datepicker.formatDate("yy-mm-dd", zhoustart),
+                            "zhouend": $.datepicker.formatDate("yy-mm-dd", zhouend)
+                        },
+                        success: function (json) {
+                            if (json.retval) {
+                                if (json.data.length > 0) {
+                                    $.each(json.data, function (i, v) {
+                                        settulinedatas.push(v.yhfw);
+                                        settulinetitle.push(v.at);
+                                    });
+                                    var map = echarts.init(document.getElementById('map'));
+                                    map.setOption(ajdatasline(settulinedatas, settulinetitle));
+                                } else {
+                                    alert("没有数据!");
+                                }
+                            }
+                        },
+                        error: function () {
+
+                        }
+                    });
                 } else {
                     alert("请选择日期!");
                     return;
@@ -113,9 +146,10 @@
         </script>
     </head>
     <body>
-        <input id="rq_selsetType_mord" value="1" hidden />
+        <button id="monthbt">月</button>&nbsp;<button id="weekbt">周</button>&nbsp;<button id="daybt">日</button>
+        <input id="rq_selsetType_mord" value="2" hidden />
         <div style=" ">
-            <input id="myDate2" name="myDate2"> 
+            <input id="myDate2" name="myDate2" readonly /> 
             <button class="ui-datepicker-close ui-state-default ui-priority-secondary ui-corner-all" name="getRange" style="margin-top: 40px;height: 30px;" onclick="demogetRange2()"><b>确 定</b></button>
         </div>
         <div id="map" style="width: 100%; height: 500px; border: 0px solid red; padding: 4px;float: left;"></div>
