@@ -3,34 +3,45 @@
     <head>
         <title>TODO supply a title</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
-        <script type="text/javascript" src="../../jquery-1.4.2.min.js"></script>
+        <script src="riqi/js/jquery.js"></script>
         <script src="../echarts-2.2.7/build/dist/echarts-all.js"></script>
+        <!-- 日期插件-->
+        <link rel="stylesheet" href="riqi/css/jquery-ui.css">
+        <link rel="stylesheet" href="riqi/css/demo-date-range-picker.css">
+        <script src="riqi/js/demo-jquery-ui.min.js"></script>
+        <script src="riqi/js/demo-date-range-picker.js"></script>
+
+
+
         <script type="text/javascript">
-            $(function () {
-                var map = echarts.init(document.getElementById('map'));
+            function ajdatasline(settulinedatas, settulinetitle) {
                 option = {
                     tooltip: {
                         trigger: 'axis'
                     },
-                    legend: {
-                        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            mark: {show: true},
-                            dataView: {show: true, readOnly: false},
-                            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-                            restore: {show: true},
-                            saveAsImage: {show: true}
-                        }
-                    },
-                    calculable: true,
+                    /*
+                     legend: {
+                     data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                     },
+                     
+                     toolbox: {
+                     show: true,
+                     feature: {
+                     mark: {show: true},
+                     dataView: {show: true, readOnly: false},
+                     magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                     restore: {show: true},
+                     saveAsImage: {show: true}
+                     }
+                     },
+                     */
+                    //calculable: true,
+                    calculable: false, //图形 不可操作 拖动
                     xAxis: [
                         {
                             type: 'category',
                             boundaryGap: false,
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                            data: settulinetitle
                         }
                     ],
                     yAxis: [
@@ -40,47 +51,73 @@
                     ],
                     series: [
                         {
-                            name: '邮件营销',
+                            name: '选型访问总量',
+                            //legendHoverLink: false,
                             type: 'line',
                             stack: '总量',
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [120, 132, 101, 134, 90, 230, 210]
-                        },
-                        {
-                            name: '联盟广告',
-                            type: 'line',
-                            stack: '总量',
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [220, 182, 191, 234, 290, 330, 310]
-                        },
-                        {
-                            name: '视频广告',
-                            type: 'line',
-                            stack: '总量',
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [150, 232, 201, 154, 190, 330, 410]
-                        },
-                        {
-                            name: '直接访问',
-                            type: 'line',
-                            stack: '总量',
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [320, 332, 301, 334, 390, 330, 320]
-                        },
-                        {
-                            name: '搜索引擎',
-                            type: 'line',
-                            stack: '总量',
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [820, 932, 901, 934, 1290, 1330, 1320]
+                            itemStyle: {
+                                normal: {
+                                    //areaStyle: {color: '#1fbba6'},
+                                    areaStyle: {color: 'rgba(31, 187, 166, 0.8)'},
+                                    lineStyle: {color: 'red'},
+                                    label: {
+                                        textStyle: {
+                                            fontWeight: '700',
+                                            fontSize: '12',
+                                            color: '#f5bf58'
+                                        }
+                                    }
+                                }
+                            },
+                            data: settulinedatas
                         }
                     ]
                 };
-                map.setOption(option);
+                return option;
+            }
+            $(function () {
+                var settulinedatas = [222, 132, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210];
+                var settulinetitle = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                var map = echarts.init(document.getElementById('map'));
+                map.setOption(ajdatasline(settulinedatas, settulinetitle));
             });
+        </script>
+        <script>
+            $(function () {
+                ddemo();
+            });
+            var drp2;
+            function ddemo() {
+                drp2 = $("#myDate2").datepicker({});
+            }
+            function demogetRange2() {
+                if (drp2.getDateRange().length > 0) {
+                    var zhoustart = new Date(Math.min.apply(Math, drp2.getDateRange()));
+                    var zhouend = new Date(Math.max.apply(Math, drp2.getDateRange()));
+                    console.log($.datepicker.formatDate("yy-mm-dd", zhoustart));
+                    console.log($.datepicker.formatDate("yy-mm-dd", zhouend));
+
+                    $(drp2.getDateRange()).each(function () {
+                        //$.datepicker.formatDate("yy-mm-dd", this))
+                    });
+
+                    var settulinedatas = [132, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210];
+                    var settulinetitle = ['FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                    var map = echarts.init(document.getElementById('map'));
+                    map.setOption(ajdatasline(settulinedatas, settulinetitle));
+                } else {
+                    alert("请选择日期!");
+                    return;
+                }
+            }
         </script>
     </head>
     <body>
-        <div id="map" style="width: 50%; height: 500px; border: 2px solid red; padding: 4px;float: left;"></div>
+        <input id="rq_selsetType_mord" value="1" hidden />
+        <div style=" ">
+            <input id="myDate2" name="myDate2"> 
+            <button class="ui-datepicker-close ui-state-default ui-priority-secondary ui-corner-all" name="getRange" style="margin-top: 40px;height: 30px;" onclick="demogetRange2()"><b>确 定</b></button>
+        </div>
+        <div id="map" style="width: 100%; height: 500px; border: 0px solid red; padding: 4px;float: left;"></div>
     </body>
 </html>

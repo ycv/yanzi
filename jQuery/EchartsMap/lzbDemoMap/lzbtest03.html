@@ -59,7 +59,7 @@
                                         getGeoJson: (function (c) {
                                                 var geoJsonName = cityMap[c];
                                                 return function (callback) {
-                                                        $.getJSON('../MapDatas/geometryCouties/' + geoJsonName + '.json', callback);
+                                                        $.getJSON('MapDatas/geometryCouties/' + geoJsonName + '.json', callback);
                                                 };
                                         })(city)
                                 };
