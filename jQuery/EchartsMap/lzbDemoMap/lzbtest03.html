@@ -4,7 +4,7 @@
         <title>lzbDemo-lzb.html</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
         <script type="text/javascript" src="../../jquery-1.4.2.min.js"></script>
-        <script src="echarts/echarts.js"></script>
+        <script src="../echarts-2.2.7/build/dist/echarts.js"></script>
     </head>
     <body>
         <div id="main" style="width: 88%; height: 500px; border: 2px solid red; padding: 4px;float: left;"></div>
@@ -12,7 +12,8 @@
             // 路径配置 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
             require.config({
                 paths: {
-                    echarts: 'echarts'
+//                    echarts: 'echarts'
+                    echarts: '../echarts-2.2.7/build/dist/'
                 }
             });
             // 使用  动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
