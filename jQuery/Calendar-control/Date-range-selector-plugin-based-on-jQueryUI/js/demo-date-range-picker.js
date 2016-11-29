@@ -25,7 +25,7 @@ $.fn.datepicker = function (options) {
     options.onSelect = function (date, me) {
         var rq_selsetType_mord = $("#rq_selsetType_mord").val();
         if (!options.dateFormat) {
-            options.dateFormat = "mm/dd/yy"
+            options.dateFormat = "mm/dd/yy";
         }
         var d = $.datepicker.parseDate(options.dateFormat, date);
 
@@ -44,8 +44,8 @@ $.fn.datepicker = function (options) {
         if (rq_selsetType_mord == 2) {
             options.daterange = [];
             options.daterange.push(d);
+            $(this).val($.datepicker.formatDate("yy/mm/dd", d, options));
         }
-
         //某一周
         if (rq_selsetType_mord == 1) {
             var nr = [];
@@ -71,12 +71,10 @@ $.fn.datepicker = function (options) {
             }
 
             options.daterange = nr;
+            var smax = new Date(Math.max.apply(Math, options.daterange));
+            var smin = new Date(Math.min.apply(Math, options.daterange));
+            $(this).val($.datepicker.formatDate("yy/mm/dd", smin, options) + " - " + $.datepicker.formatDate("yy/mm/dd", smax, options));
         }
-
-        var max = new Date(Math.max.apply(Math, options.daterange));
-        var min = new Date(Math.min.apply(Math, options.daterange));
-
-        //$(this).val($.datepicker.formatDate(options.dateFormat, max, options) + " - " + $.datepicker.formatDate(options.dateFormat, min, options));
     }
     options.onClose = function (date, me) {
         if (oldOptions.onClose) {
