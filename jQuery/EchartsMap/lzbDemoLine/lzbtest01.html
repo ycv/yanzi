@@ -6,10 +6,14 @@
         <script src="riqi/js/jquery.js"></script>
         <script src="../echarts-2.2.7/build/dist/echarts-all.js"></script>
         <!-- 日期插件-->
+        <link rel="stylesheet" type="text/css" href="riqi/css/jquery.monthpicker.css">
+
         <link rel="stylesheet" href="riqi/css/jquery-ui.css">
         <link rel="stylesheet" href="riqi/css/demo-date-range-picker.css">
         <script src="riqi/js/demo-jquery-ui.min.js"></script>
         <script src="riqi/js/demo-date-range-picker.js"></script>
+
+        <script src="riqi/js/jquery.monthpicker.js"></script>
 
         <script type="text/javascript">
             var mydate = new Date();
@@ -90,6 +94,14 @@
         <script>
             $(function () {
                 ddemo();
+
+                $('#monthpicker').monthpicker({
+                    years: [2016, 2015],
+                    topOffset: 6,
+                    onMonthSelect: function (m, y) {
+                        console.log('Month: ' + m + ', year: ' + y);
+                    }
+                });
                 $("#weekbt").click(function () {
                     $("#myDate2").val('');
                     $("#rq_selsetType_mord").val(1);
@@ -169,6 +181,9 @@
         </script>
     </head>
     <body>
+        <div class="content">
+            <a  id="monthpicker" style="cursor: pointer"></a>
+        </div>
         <button id="monthbt">月</button>&nbsp;<button id="weekbt">周</button>&nbsp;<button id="daybt">日</button>
         <input id="rq_selsetType_mord" value="2" hidden />
         <div style=" ">
