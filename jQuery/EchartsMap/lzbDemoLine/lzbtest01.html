@@ -91,9 +91,12 @@
             $(function () {
                 ddemo();
                 $("#weekbt").click(function () {
+                    $("#myDate2").val('');
                     $("#rq_selsetType_mord").val(1);
                 });
                 $("#daybt").click(function () {
+                    $("#myDate2").val('');
+
                     $("#rq_selsetType_mord").val(2);
                 });
             });
@@ -102,7 +105,8 @@
                 drp2 = $("#myDate2").datepicker({});
             }
             function demogetRange2() {
-                if (drp2.getDateRange().length > 0) {
+                console.log($("#myDate2").val());
+                if (drp2.getDateRange().length > 0 && $("#myDate2").val() != '') {
                     var zhoustart = new Date(Math.min.apply(Math, drp2.getDateRange()));
                     var zhouend = new Date(Math.max.apply(Math, drp2.getDateRange()));
 //                    console.log($.datepicker.formatDate("yy-mm-dd", zhoustart));
@@ -138,13 +142,8 @@
                                         settulinetitle.push(v.zhou);
                                         stitledata[v.zhou] = v.zhouname + " 选型访问总量:" + v.num;
                                     }
-//                                    $.each(json.data, function (i, v) {
-//                                        settulinedatas.push(v.num);
-//                                        settulinetitle.push(v.zhou);
-//                                        stitledata[v.zhou] = v.zhouname + " 选型访问总量:" + v.num;
-//                                    });
-//                                        return false;
                                 }
+
                                 //日
                                 if (2 == $("#rq_selsetType_mord").val()) {
                                     $.each(json.data, function (i, v) {
@@ -171,7 +170,7 @@
     </head>
     <body>
         <button id="monthbt">月</button>&nbsp;<button id="weekbt">周</button>&nbsp;<button id="daybt">日</button>
-        <input id="rq_selsetType_mord" value="1" hidden />
+        <input id="rq_selsetType_mord" value="2" hidden />
         <div style=" ">
             <input id="myDate2" name="myDate2" readonly /> 
             <button class="ui-datepicker-close ui-state-default ui-priority-secondary ui-corner-all" name="getRange" style="margin-top: 40px;height: 30px;" onclick="demogetRange2()"><b>确 定</b></button>

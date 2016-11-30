@@ -6,16 +6,9 @@ if (isset($_POST['zhoustart']) && $_POST['zhouend']) {
     $json ['retval'] = false;
     $zhd = array();
     if ($_POST['zhoustart'] === $_POST['zhouend']) {
-//        echo strtotime($_POST['zhoustart']);
-//        echo date("Y-m-d H:i:s", 1476633600);
         $zhd = getPdatasoneday(strtotime($_POST['zhoustart']));
     } else {
         $zhd = getPdatasoneweek(strtotime($_POST['zhoustart']), strtotime($_POST['zhouend']));
-
-//        krsort($zhd);
-//        echo "<pre>";
-//        print_r($zhd);
-//        die;
     }
 
     $json ['retval'] = true;
@@ -64,21 +57,22 @@ function getPdatasoneday($time) {
     $d = array();
     $setqutime = array();
     for ($jj = 0; $jj < 10; $jj++) {
-        $setqutime[] = strtotime(date('Y-m-d H:i:s', strtotime('-' . $jj . ' day', $time)));
+        $tti = strtotime('-' . $jj . ' day', $time);
+        $setqutime[] = strtotime(date('Y-m-d H:i:s', $tti));
+        $d[$tti]['yhfw'] = 0;
+        $d[$tti]['at'] = date('Y-m-d', $tti);
     }
-//    echo "<pre>";
-//    print_r($setqutime);
-//    echo implode(",", $setqutime);
-//    die;
     //IN ( 1478620800, 1478534400 ) 
 //    $sqltxt = "SELECT `pv_exwinner`,`pv_pcdian`,`pv_mobdian`,`pv_dqdian`,`pv_sw`,`at` FROM `echarts_line_selection_total` where `at`= " . $time;
     $sqltxt = "SELECT (`pv_exwinner`+`pv_pcdian`+`pv_mobdian`+`pv_dqdian`+`pv_sw` )as yhfw,`at` FROM `echarts_line_selection_total` where `at` IN (" . implode(",", $setqutime) . ")  ORDER BY  `at` ASC  ";
 //    echo $sqltxt;die;
 
     $pdatas = getdatasmsql($sqltxt);
+
     foreach ($pdatas as $k => $v) {
-        $d[$k]['yhfw'] = $v["yhfw"];
-        $d[$k]['at'] = date("Y-m-d", $v["at"]);
+        if (array_key_exists($v["at"], $d)) {
+            $d[$v["at"]]['yhfw'] = $v["yhfw"];
+        }
     }
     return $d;
 }
