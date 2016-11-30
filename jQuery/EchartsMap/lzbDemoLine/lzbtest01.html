@@ -11,11 +11,9 @@
         <script src="riqi/js/demo-jquery-ui.min.js"></script>
         <script src="riqi/js/demo-date-range-picker.js"></script>
 
-
-
         <script type="text/javascript">
             var mydate = new Date();
-            function ajdatasline(settulinedatas, settulinetitle) {
+            function ajdatasline(settulinedatas, settulinetitle, stitledata) {
                 option = {
                     tooltip: {
                         trigger: 'axis'
@@ -70,6 +68,11 @@
                                     }
                                 }
                             },
+                            tooltip: {
+                                formatter: function (a) {
+                                    return stitledata[a[0].name];
+
+                                }},
                             data: settulinedatas
                         }
                     ]
@@ -79,8 +82,9 @@
             $(function () {
                 var settulinedatas = [222, 132, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210];
                 var settulinetitle = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                var stitledata = [];
                 var map = echarts.init(document.getElementById('map'));
-                map.setOption(ajdatasline(settulinedatas, settulinetitle));
+                map.setOption(ajdatasline(settulinedatas, settulinetitle, stitledata));
             });
         </script>
         <script>
@@ -110,6 +114,7 @@
 
                     var settulinedatas = [];
                     var settulinetitle = [];
+                    var stitledata = [];
                     $.ajax({
                         type: "POST",
                         async: true, //必须为true
@@ -122,20 +127,39 @@
                         },
                         success: function (json) {
                             if (json.retval) {
-                                if (json.data.length > 0) {
+
+
+                                //周
+                                if (1 == $("#rq_selsetType_mord").val()) {
+                                    var dl = json.data.length - 1;
+                                    for (var z = dl; z >= 0; z--) {
+                                        var v = json.data[z];
+                                        settulinedatas.push(v.num);
+                                        settulinetitle.push(v.zhou);
+                                        stitledata[v.zhou] = v.zhouname + " 选型访问总量:" + v.num;
+                                    }
+//                                    $.each(json.data, function (i, v) {
+//                                        settulinedatas.push(v.num);
+//                                        settulinetitle.push(v.zhou);
+//                                        stitledata[v.zhou] = v.zhouname + " 选型访问总量:" + v.num;
+//                                    });
+//                                        return false;
+                                }
+                                //日
+                                if (2 == $("#rq_selsetType_mord").val()) {
                                     $.each(json.data, function (i, v) {
                                         settulinedatas.push(v.yhfw);
                                         settulinetitle.push(v.at);
+                                        stitledata[v.at] = v.at.substr(0, 4) + "年" + v.at.substr(5, 2) + "月" + v.at.substr(8, 2) + "日 选型访问总量:" + v.yhfw;
                                     });
-                                    var map = echarts.init(document.getElementById('map'));
-                                    map.setOption(ajdatasline(settulinedatas, settulinetitle));
-                                } else {
-                                    alert("没有数据!");
                                 }
+                                var map = echarts.init(document.getElementById('map'));
+                                map.setOption(ajdatasline(settulinedatas, settulinetitle, stitledata));
+
                             }
                         },
                         error: function () {
-
+                            alert("没有数据!");
                         }
                     });
                 } else {
@@ -147,7 +171,7 @@
     </head>
     <body>
         <button id="monthbt">月</button>&nbsp;<button id="weekbt">周</button>&nbsp;<button id="daybt">日</button>
-        <input id="rq_selsetType_mord" value="2" hidden />
+        <input id="rq_selsetType_mord" value="1" hidden />
         <div style=" ">
             <input id="myDate2" name="myDate2" readonly /> 
             <button class="ui-datepicker-close ui-state-default ui-priority-secondary ui-corner-all" name="getRange" style="margin-top: 40px;height: 30px;" onclick="demogetRange2()"><b>确 定</b></button>

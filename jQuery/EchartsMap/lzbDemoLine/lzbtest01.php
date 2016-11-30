@@ -1,20 +1,25 @@
 <?php
 
+//echo date("Y-m-d H:i:s", 1476633600);die;
 header("Content-Type:text/html;charset=UTF-8");
 if (isset($_POST['zhoustart']) && $_POST['zhouend']) {
     $json ['retval'] = false;
     $zhd = array();
     if ($_POST['zhoustart'] === $_POST['zhouend']) {
 //        echo strtotime($_POST['zhoustart']);
-//        echo date("Y-m-d H:i:s", 1478534400);
+//        echo date("Y-m-d H:i:s", 1476633600);
         $zhd = getPdatasoneday(strtotime($_POST['zhoustart']));
     } else {
         $zhd = getPdatasoneweek(strtotime($_POST['zhoustart']), strtotime($_POST['zhouend']));
+
+//        krsort($zhd);
+//        echo "<pre>";
+//        print_r($zhd);
+//        die;
     }
 
     $json ['retval'] = true;
     $json ['data'] = $zhd;
-
     echo json_encode($json);
     die();
 }
@@ -24,13 +29,23 @@ function getPdatasoneweek($start, $end) {
     $weekdatastemps = array();
     $weekdatastempe = array();
     for ($ij = 0; $ij <= 5; $ij++) {
-        $weekdatas[$ij]['zhou'] = date('Y', strtotime('-' . $ij . ' week', $start)) . "年  第" . date('W', strtotime('-' . $ij . ' week', $start)) . "周";
-        $weekdatas[$ij]['s'] = strtotime('-' . $ij . ' week', $start);
-        $weekdatas[$ij]['e'] = strtotime('-' . $ij . ' week', $end);
+        $setswdt = strtotime('-' . $ij . ' week', $start);
+        $enetswdt = strtotime('-' . $ij . ' week', $end);
+        $weekdatas[$ij]['zhou'] = date('Y', $setswdt) . "年  第" . date('W', $setswdt) . "周";
+        $weekdatas[$ij]['s'] = $setswdt;
+        $weekdatas[$ij]['e'] = $enetswdt;
+
+        $weekdatas[$ij]['zhouname'] = date("Y年m月d日", $setswdt) . "~" . date("Y年m月d日", $enetswdt);
         $weekdatas[$ij]['num'] = 0;
-        $weekdatastemps[] = strtotime('-' . $ij . ' week', $start);
-        $weekdatastempe[] = strtotime('-' . $ij . ' week', $end);
+        $weekdatastemps[] = $setswdt;
+        $weekdatastempe[] = $enetswdt;
     }
+
+
+
+
+
+
     $p_s = min($weekdatastemps);
     $p_e = max($weekdatastempe);
     $sqltxt = "SELECT (  `pv_exwinner` +  `pv_pcdian` +  `pv_mobdian` +  `pv_dqdian` +  `pv_sw`) AS yhfw,  `at` FROM  `echarts_line_selection_total` WHERE  `at` >=" . $p_s . " AND  `at` <=" . $p_e . " ORDER BY  `echarts_line_selection_total`.`at` DESC ";
