@@ -194,62 +194,62 @@
             <div class="inner">
                 <div class="lists">
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>1文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>2文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>3文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>4文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>5文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>6文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>7文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>8文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>9文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>10文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>11文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
                     <a class="item">
-                        <img src="img/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                        <img src="img/product-list.jpg" alt="">
                         <h3>12文字描述文字描述文字描述文字描述文字描述</h3>
                         <span class="date">2014-14-14</span>
                     </a>
@@ -257,7 +257,7 @@
             </div>
         </div>
         <script src="js/zepto.min.js"></script>
-        <script src="../dist/dropload.min.js"></script>
+        <script src="../dist/dropload.js"></script>
         <script>
             // 按钮操作
             $('.header .btn').on('click', function () {
@@ -295,8 +295,10 @@
                         url: 'json/update.json',
                         dataType: 'json',
                         success: function (data) {
+                            console.log(data);
                             var result = '';
                             for (var i = 0; i < data.lists.length; i++) {
+                                console.log(data.lists[i].title);
                                 result += '<a class="item opacity">'
                                         + '<img src="' + data.lists[i].pic + '" alt="">'
                                         + '<h3 href="' + data.lists[i].link + '" >' + data.lists[i].title + '</h3>'
@@ -322,6 +324,7 @@
                         url: 'json/more.json',
                         dataType: 'json',
                         success: function (data) {
+                            console.log("bb");
                             var result = '';
                             for (var i = 0; i < data.lists.length; i++) {
                                 result += '<a class="item opacity">'
