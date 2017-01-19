@@ -1,0 +1,285 @@
+@charset "UTF-8";
+
+
+img {
+	border: none;
+}
+
+a {
+	color: #CCC;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+html,body {
+	margin: 0px;
+	height: 100%;
+	background-color: #333;
+	color: #BBB;
+
+	font-family: 'Civilian';
+	font-weight: normal;
+	font-style: normal;
+}
+
+iframe {
+	border: none;
+}
+
+.poster {
+	float: left;
+	color: #333;
+	height: 100%;
+	overflow: hidden;
+}
+
+.poster_inner {
+	position: absolute;
+/*	margin-top: -180px; */
+
+	height: 100%; 
+	color: #333;
+/*	padding-top: 100px; */
+
+	overflow: hidden;
+}
+
+.poster .bigletter {
+	position: relative; 
+	top: -50px;
+	text-align: center;
+	font-weight: bold;
+	color: #333;
+}
+
+.poster .longname {
+	position: relative;
+	top: -135px; 
+	text-align: center;
+	font: 38px/0.9 Civilian;
+/*	padding-top: 50px;*/
+}
+
+/************** CONTENT **************/
+
+
+/**** SHOWINGS ****/
+
+.showings {
+	width: 900px;
+	height: 560px;
+	overflow: hidden;
+	font-family: Civilian;
+}
+
+.showings_navigation {
+	background-color: #222;
+	height: 40px;
+	color: #555;
+	padding-left: 33px;
+	padding-right: 33px;
+}
+
+.showings_navigation_buttons {
+	height: 40px;
+	float: left;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+
+	font-size: 20pt;
+}
+
+.showings_navigation_buttons a {
+	color: #333;
+}
+
+.showings_navigation_scroll {
+	float: right;
+}
+
+.showings_navigation_scroll_down {
+	display: none;
+}
+
+.content {
+	float: left;
+	height: 100%;
+	background-color: #333;
+	display: none;
+	
+	
+	overflow-x: hidden;
+	overflow-y: auto;
+	
+}
+
+.content_inner {
+	display: none;
+	overflow-x: hidden;
+}
+
+.content_descriptions {
+	padding-top: 40px;
+	padding-left: 40px;
+	padding-bottom: 40px;
+	padding-right: 10px;
+	
+	font: .9em/1.2 Civilian;
+	
+}
+
+.content_descriptions_title {
+	font: 26px/1.2 Citizen;
+/*	letter-spacing: 1px; */
+	font-weight: bold;
+
+	color: #FFF;
+	margin-bottom: 14px;
+}
+
+.content_descriptions_title_about {
+	font: 13px/1.2 Civilian;
+	text-transform: uppercase;
+
+	color: #000;
+	font-variant: italic;
+	margin-bottom: 3px;
+}
+
+.content_descriptions_columns {
+	float: left;
+	width: 385px;
+	padding-right: 30px;
+	
+	font: 16px/1.4 Civilian;
+}
+
+.content_descriptions_columns em {
+	color: #FFF;
+}
+
+.content_descriptions_text {
+	margin-top: 10px;
+}
+
+/************** FINDER **************/
+
+
+.finder {
+	float: left;
+	height: 100%;
+	background-color: #333;
+	color: #DDD;
+	width: 200px;
+}
+
+.finder_inner {
+	padding-top: 30px;
+}
+
+
+#fixedfinder {
+	height: 100%;
+	background-color: #333;
+	color: #DDD;
+	width: 50px;
+	position: fixed;
+	left: 0px;
+	z-index: 200; 
+	display: none;
+}
+
+
+.finder_item {
+	font: 1em/0.9 Citizen;
+
+	left: 0px;
+	width: 100%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.finder_item_cosen {
+	color: #333;
+}
+
+.finder_item {
+	cursor: pointer;
+}
+
+.finder .finder_inner .finder_item {
+	text-align: left;
+	padding-left: 20px;
+}
+
+.finder_inner_bottom {
+	width: 100%;
+	position: absolute;
+	bottom: 30px;
+}
+
+
+.finder_item_maximize {
+	/* hide for mobiles */ 
+}
+
+
+.end {
+	background-color: #222;
+}
+
+
+.end_inner {
+	color: #BBB;
+	padding: 60px;
+	font: 26px/1.35 Civilian;
+	float: left;
+	height: 100%;
+}
+
+.title {
+	color: #E4005C;
+	font: 30px/1.2 Citizen;
+	font-weight: bold;
+	line-height: 1.2em;
+	margin-bottom: -30px;
+}
+
+.like {
+	margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+@media all and (max-device-width: 1024px) {
+	
+	.finder_item_maximize {
+		display: none;
+	}
+}
+
+
+
+
+
+/*---------------clear-------------*/
+.clear:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+.clear {display:inline-block;}
+/* Hide from IE Mac \*/
+.clear { display:block; }
+/* End hide from IE Mac */
+* html .clear {height:1px;}
+/*---------------clear-------------*/
