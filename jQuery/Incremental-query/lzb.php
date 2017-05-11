@@ -32,6 +32,29 @@
                 padding-left:35px; 
                 font-family:"Microsoft Yahei";
             }
+
+            table.gridtable {
+                font-family: verdana,arial,sans-serif;
+                font-size:11px;
+                color:#333333;
+                border-width: 1px;
+                border-color: #666666;
+                border-collapse: collapse;
+            }
+            table.gridtable th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #dedede;
+            }
+            table.gridtable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #ffffff;
+            }
         </style>
         <script type="text/javascript" src="../jquery-1.7.2.js"></script>
         <script type="text/javascript" >
@@ -202,10 +225,10 @@
                     minChars: 1, //至少输入的字符数。
                     mustMatch: false, //如果设置为true,只会允许匹配的结果出现在输入框,当用户输入的是非法字符时,将被清除
                     formatMatch: function (row, rowNum, rowCount) {
-                        return row.b;
+                        return row.b + "---RRRRR--" + rowNum + "----------" + rowCount;
                     },
                     formatResult: function (row, rowNum, rowCount) {
-                        return row.b;
+                        return row.b + "--vvvvvRRRRR";
                     }
                 };
                 autocomp = new Autocomplete(setting);
@@ -216,16 +239,27 @@
                 $("#search_kw").keyup(function () {
                     if ($.trim($(this).val()) != "") {
                         clearTimeout(lzbtimeout);
-                        lzbtimeout = setTimeout("getdatas('" + $(this).val() + "')", 500);
+                        lzbtimeout = setTimeout("getdatas('" + $(this).val() + "')", 200);
                     }
                 });
             });
             //获取 搜索数据
             function getdatas(key) {
-                console.log(key);
                 //搜索系列
                 var list = autocomp.search(key);
                 console.log(list);
+                var listHTML = '';
+                $("#gridtable").empty();
+                if (list.length > 0) {
+                    listHTML += '<tr><th>id</th><th>Info Header 1</th><th>Info Header 2</th><th>Info Header 3</th></tr>';
+                    $.each(list, function (i, v) {
+                        i++;
+                        listHTML += '<tr><td>' + i + '</td><td>' + v.data.a + '</td><td>' + v.data.b + '</td><td>' + v.data.c + '</td></tr>';
+                    });
+                } else {
+                    listHTML += '<tr><th>没有数据关于:  ' + key + '</th></tr>';
+                }
+                $("#gridtable").html(listHTML);
             }
         </script>
     </head>
@@ -240,6 +274,11 @@
                                                     value = '';" value="输型号…查价格" />
                 </li>
             </ul>
+            <br/>
+            <div style="height:340px;border:1px solid green;overflow-y:scroll;">
+                <table class="gridtable" id="gridtable">
+                </table>
+            </div>
         </div>
     </body>
 
