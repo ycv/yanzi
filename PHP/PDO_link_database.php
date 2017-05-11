@@ -14,7 +14,7 @@ class dbconfig {
     private static $username = 'root';
     private static $password = '111111';
     private static $dbname = 'yanzi';
-    private static $charset = 'utf-8';
+    private static $charset = 'utf8';
     private static $dsn;
 
     /**
@@ -25,8 +25,8 @@ class dbconfig {
             self::$dsn = self::$dbms . ':host=' . self::$host . ';port=' .
                     self::$port . ';dbname=' . self::$dbname;
             if (strlen(self::$charset) > 0) {
-                //self::$dsn = self::$dsn . ';charset=' . self::$charset;
-                self::$dsn = self::$dsn;
+                self::$dsn = self::$dsn . ';charset=' . self::$charset;
+//                self::$dsn = self::$dsn;
             }
         }
 
