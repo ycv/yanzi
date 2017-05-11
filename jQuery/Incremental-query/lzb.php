@@ -235,9 +235,10 @@
             }
 
 
+            var keyOld = "";
             $(function () {
                 $("#search_kw").keyup(function () {
-                    if ($.trim($(this).val()) != "") {
+                    if ($.trim($(this).val()) != "" && $.trim($(this).val()) != keyOld) {
                         clearTimeout(lzbtimeout);
                         lzbtimeout = setTimeout("getdatas('" + $(this).val() + "')", 200);
                     }
@@ -245,6 +246,7 @@
             });
             //获取 搜索数据
             function getdatas(key) {
+                keyOld = key;
                 //搜索系列
                 var list = autocomp.search(key);
                 console.log(list);
