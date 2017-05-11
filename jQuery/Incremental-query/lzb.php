@@ -225,9 +225,12 @@
                     minChars: 1, //至少输入的字符数。
                     mustMatch: false, //如果设置为true,只会允许匹配的结果出现在输入框,当用户输入的是非法字符时,将被清除
                     formatMatch: function (row, rowNum, rowCount) {
-                        return row.b + "---RRRRR--" + rowNum + "----------" + rowCount;
+                        //匹配的条件  显示结果
+                        //rowNum 匹配所在行数
+                        return row.b + row.a;
                     },
                     formatResult: function (row, rowNum, rowCount) {
+                        //显示结果
                         return row.b + "--vvvvvRRRRR";
                     }
                 };
