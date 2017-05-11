@@ -35,6 +35,141 @@
         </style>
         <script type="text/javascript" src="../jquery-1.7.2.js"></script>
         <script type="text/javascript" >
+            //手工  JS原生态
+            //渐进式查询插件 
+            function Autocomplete(setting) {
+                //默认配置
+                var c = {
+                    data: setting.data,
+                    url: setting.url,
+                    //缓存的长度.即缓存多少条记录.设成1为不缓存
+                    cacheLength: setting.cacheLength,
+                    //决定比较时是否要在字符串内部查看匹配
+                    matchContains: setting.matchContains,
+                    //是否开启大小写敏感
+                    matchCase: setting.matchCase,
+                    //是否启用缓存
+                    matchSubset: setting.matchSubset,
+                    //下拉项目的个数
+                    max: setting.max,
+                    //至少输入的字符数。
+                    minChars: setting.minChars,
+                    //如果设置为true,只会允许匹配的结果出现在输入框,当用户输入的是非法字符时,将被清除
+                    mustMatch: setting.mustMatch,
+                    formatMatch: setting.formatMatch,
+                    formatResult: setting.formatResult
+                };
+                //缓存数据
+                var f = {};
+                var d = 1;
+                var h = function (l, k) {
+                    if (!c.matchCase) {
+                        l = l.toLowerCase();
+                    }
+                    var j = l.indexOf(k);
+                    if (c.matchContains == "word") {
+                        j = l.toLowerCase().search("\\b" + k.toLowerCase());
+                    }
+                    if (j == -1) {
+                        return false;
+                    }
+                    return j == 0 || c.matchContains;
+                };
+                var g = function (j, i) {
+                    if (d > c.cacheLength) {
+                        b();
+                    }
+                    if (!f[j]) {
+                        d++;
+                    }
+                    f[j] = i;
+                };
+                var e = function () {
+                    if (!c.data) {
+                        return false;
+                    }
+                    var k = {},
+                            j = 0;
+                    if (!c.url) {
+                        c.cacheLength = 1;
+                    }
+                    k[""] = [];
+                    for (var m = 0, l = c.data.length; m < l; m++) {
+                        var p = c.data[m];
+                        p = (typeof p == "string") ? [p] : p;
+                        var o = c.formatMatch(p, m + 1, c.data.length);
+                        if (o === false) {
+                            continue
+                        }
+                        var n = o.charAt(0).toLowerCase();
+                        if (!k[n]) {
+                            k[n] = [];
+                        }
+                        var q = {
+                            value: o,
+                            data: p,
+                            result: c.formatResult && c.formatResult(p) || o
+                        };
+                        k[n].push(q);
+                        if (j++ < c.max) {
+                            k[""].push(q);
+                        }
+                    }
+                    for (var r in k) {
+                        c.cacheLength++;
+                        g(r, k[r]);
+                    }
+                };
+                var b = function () {
+                    f = {};
+                    d = 0;
+                };
+                e();
+                //搜索
+                this.search = function (n) {
+                    n = n.toLowerCase();
+                    if (!c.cacheLength || !d) {
+                        return null;
+                    }
+                    if (!c.url && c.matchContains) {
+                        var m = [];
+                        for (var j in f) {
+                            if (j.length > 0 && m.length < c.max) {
+                                var o = f[j];
+                                for (var p in o) {
+                                    if (h(o[p].value, n)) {
+                                        m.push(o[p]);
+                                    }
+                                }
+                            }
+                        }
+                        return m;
+                    } else {
+                        if (f[n]) {
+                            return f[n];
+                        } else {
+                            if (c.matchSubset) {
+                                for (var l = n.length - 1; l >= c.minChars; l--) {
+                                    var o = f[n.substr(0, l)];
+                                    if (o) {
+                                        var m = [];
+                                        for (var p in o) {
+                                            if (h(o[p].value, n)) {
+                                                m[m.length] = o[p];
+                                            }
+                                        }
+                                        return m;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return null;
+                };
+            }
+        </script>
+        <script type="text/javascript" >
+            var autocomp;
             var lzbtimeout;
 
             //获取seriesDATA 缓存数据   把字符串转换成JSON对象  
@@ -73,7 +208,7 @@
                         return row.b;
                     }
                 };
-                console.log(seriesDATA);
+                autocomp = new Autocomplete(setting);
             }
 
 
@@ -88,6 +223,9 @@
             //获取 搜索数据
             function getdatas(key) {
                 console.log(key);
+                //搜索系列
+                var list = autocomp.search(key);
+                console.log(list);
             }
         </script>
     </head>
@@ -104,141 +242,7 @@
             </ul>
         </div>
     </body>
-    <script type="text/javascript" >
-        //手工  JS原生态
-        //渐进式查询插件 
-        function Autocomplete(setting) {
-            //默认配置
-            var c = {
-                data: setting.data,
-                url: setting.url,
-                //缓存的长度.即缓存多少条记录.设成1为不缓存
-                cacheLength: setting.cacheLength,
-                //决定比较时是否要在字符串内部查看匹配
-                matchContains: setting.matchContains,
-                //是否开启大小写敏感
-                matchCase: setting.matchCase,
-                //是否启用缓存
-                matchSubset: setting.matchSubset,
-                //下拉项目的个数
-                max: setting.max,
-                //至少输入的字符数。
-                minChars: setting.minChars,
-                //如果设置为true,只会允许匹配的结果出现在输入框,当用户输入的是非法字符时,将被清除
-                mustMatch: setting.mustMatch,
-                formatMatch: setting.formatMatch,
-                formatResult: setting.formatResult
-            };
 
-            //缓存数据
-            var f = {};
-            var d = 1;
-            var h = function (l, k) {
-                if (!c.matchCase) {
-                    l = l.toLowerCase();
-                }
-                var j = l.indexOf(k);
-                if (c.matchContains == "word") {
-                    j = l.toLowerCase().search("\\b" + k.toLowerCase());
-                }
-                if (j == -1) {
-                    return false;
-                }
-                return j == 0 || c.matchContains;
-            };
-            var g = function (j, i) {
-                if (d > c.cacheLength) {
-                    b();
-                }
-                if (!f[j]) {
-                    d++;
-                }
-                f[j] = i;
-            };
-            var e = function () {
-                if (!c.data) {
-                    return false;
-                }
-                var k = {},
-                        j = 0;
-                if (!c.url) {
-                    c.cacheLength = 1;
-                }
-                k[""] = [];
-                for (var m = 0, l = c.data.length; m < l; m++) {
-                    var p = c.data[m];
-                    p = (typeof p == "string") ? [p] : p;
-                    var o = c.formatMatch(p, m + 1, c.data.length);
-                    if (o === false) {
-                        continue
-                    }
-                    var n = o.charAt(0).toLowerCase();
-                    if (!k[n]) {
-                        k[n] = [];
-                    }
-                    var q = {
-                        value: o,
-                        data: p,
-                        result: c.formatResult && c.formatResult(p) || o
-                    };
-                    k[n].push(q);
-                    if (j++ < c.max) {
-                        k[""].push(q);
-                    }
-                }
-                for (var r in k) {
-                    c.cacheLength++;
-                    g(r, k[r]);
-                }
-            };
-            var b = function () {
-                f = {};
-                d = 0;
-            };
-            e();
-            //搜索
-            this.search = function (n) {
-                n = n.toLowerCase();
-                if (!c.cacheLength || !d) {
-                    return null;
-                }
-                if (!c.url && c.matchContains) {
-                    var m = [];
-                    for (var j in f) {
-                        if (j.length > 0 && m.length < c.max) {
-                            var o = f[j];
-                            for (var p in o) {
-                                if (h(o[p].value, n)) {
-                                    m.push(o[p]);
-                                }
-                            }
-                        }
-                    }
-                    return m;
-                } else {
-                    if (f[n]) {
-                        return f[n];
-                    } else {
-                        if (c.matchSubset) {
-                            for (var l = n.length - 1; l >= c.minChars; l--) {
-                                var o = f[n.substr(0, l)];
-                                if (o) {
-                                    var m = [];
-                                    for (var p in o) {
-                                        if (h(o[p].value, n)) {
-                                            m[m.length] = o[p];
-                                        }
-                                    }
-                                    return m;
-                                }
-                            }
-                        }
-                    }
-                }
-                return null;
-            };
-        }
-    </script>
 </html>
 
 <!-- 
