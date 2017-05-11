@@ -60,8 +60,8 @@
                 });
             });
             function getdatas(key) {
-                
-                console.log(JSON.parse(seriesDATA));
+                console.log(key);
+//                console.log(JSON.parse(seriesDATA));
             }
         </script>
     </head>
