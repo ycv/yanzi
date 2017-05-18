@@ -2,13 +2,13 @@
 
 /*
   phpexcel读取大文件demo
-  Author:陈杰斌
   Author URI: http://www.01happy.com
  */
-
+//memory_get_usage — 返回分配给 PHP 的内存量 
+//返回当前分配给你的 PHP 脚本的内存量，单位是字节（byte）。 
 echo memory_get_usage();
 
-include_once __DIR__ . '/PHPExcel.php';
+include_once __DIR__ . '/../../Third/PHPExcel/Classes/PHPExcel.php';
 
 /**
  * 读取excel过滤器
@@ -33,19 +33,6 @@ class PHPExcelReadFilter implements PHPExcel_Reader_IReadFilter {
 
 }
 
-$startRow = 1;
-$endRow = null;
-$excelFile = __DIR__ . '/data/payment.xlsx';
-$excelFile = __DIR__ . '/data/tIP2.xlsx';
-
-$result = readFromExcel($excelFile, null, $startRow, $endRow);
-
-echo "<br />";
-echo memory_get_usage();
-echo "<pre>";
-echo "<br />";
-print_r($result);
-
 /**
  * 读取excel转换成数组
  * 
@@ -56,8 +43,6 @@ print_r($result);
  * @retunr array
  */
 function readFromExcel($excelFile, $excelType = null, $startRow = 1, $endRow = null) {
-    include_once __DIR__ . '/PHPExcel.php';
-
     $excelReader = \PHPExcel_IOFactory::createReader("Excel2007");
     $excelReader->setReadDataOnly(true);
 
@@ -86,3 +71,20 @@ function readFromExcel($excelFile, $excelType = null, $startRow = 1, $endRow = n
     }
     return $data;
 }
+
+$excelFile = __DIR__ . '/data/payment.xlsx';
+$excelFile = __DIR__ . '/data/ssss.xlsx';
+$result = readFromExcel($excelFile, null, 1, 30);
+echo "<br />";
+echo memory_get_usage();
+echo "<pre>";
+echo "<br />";
+print_r($result);
+
+
+
+
+
+
+
+
