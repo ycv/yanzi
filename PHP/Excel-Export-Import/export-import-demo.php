@@ -4,7 +4,7 @@ header('Content-Type:text/html;Charset=utf-8');
 date_default_timezone_set('Asia/Shanghai');
 require_once '../Third/PHPExcel/Classes/PHPExcel.php';
 
-$filePath = 'tIP2.xlsx';
+$filePath = '/bigfile/data/tIP2.xlsx';
 $PHPExcel = new PHPExcel();
 /* * 默认用excel2007读取excel，若格式不对，则用之前的版本进行读取 */
 $PHPReader = new PHPExcel_Reader_Excel2007();
@@ -141,5 +141,4 @@ function GetIpLookup($ip = '') {
     }
     return $json;
 }
-
 ?>
