@@ -68,7 +68,17 @@ function readFromExcel($excelFile, $excelType = null, $startRow = 1, $endRow = n
     $data = array();
     for ($row = $startRow; $row <= $endRow; $row++) {
         for ($col = 0; $col < $highestColumnIndex; $col++) {
-            $data[$row][] = (string) $activeSheet->getCellByColumnAndRow($col, $row)->getValue();
+            //时间 格式 转换
+            //更新日期  加入TOP10   退出Top10
+            if (($col == 148) || ($col == 150) || ($col == 151)) {
+                if ($activeSheet->getCellByColumnAndRow($col, $row)->getDataType() == PHPExcel_Cell_DataType::TYPE_NUMERIC) {
+                    $data[$row][] = PHPExcel_Shared_Date::ExcelToPHP($activeSheet->getCellByColumnAndRow($col, $row)->getValue());
+                } else {
+                    $data[$row][] = (string) $activeSheet->getCellByColumnAndRow($col, $row)->getValue();
+                }
+            } else {
+                $data[$row][] = (string) $activeSheet->getCellByColumnAndRow($col, $row)->getValue();
+            }
         }
     }
     return $data;
@@ -76,16 +86,26 @@ function readFromExcel($excelFile, $excelType = null, $startRow = 1, $endRow = n
 
 $excelFile = __DIR__ . '/data/payment.xlsx';
 $excelFile = __DIR__ . '/data/ssss.xlsx';
-$result = readFromExcel($excelFile, null, 1, 5);
+$result = readFromExcel($excelFile, null, 4, 6);
 //echo "<br />";
 //echo memory_get_usage();
 echo "<pre>";
-//print_r($result);
+
 
 
 
 foreach ($result as $key => $value) {
     if ($key > 4) {
+        if ($value[148]) {
+            $value[148] = date('Y-m-d', $value[148]);
+        }
+        if ($value[150]) {
+            $value[150] = date('Y-m-d', $value[150]);
+        }
+        if ($value[151]) {
+            $value[151] = date('Y-m-d', $value[151]);
+        }
+
         $sqltxt = "INSERT INTO `yanzi`.`yii2test_projectreport` "
                 . "(`id`, `number`, `entry_name`, `region`, `address`, `Industry_owned`, "
                 . "`Investment_unit`, `Scale`, `Party_a_contact`, `Telephone`, `Design_unit`, "
@@ -97,13 +117,14 @@ foreach ($result as $key => $value) {
                 . " '" . $value[11] . "', '" . $value[12] . "', '" . $value[13] . "',"
                 . " '1', '1', '1', '" . $value[147] . "',"
                 . " '" . $value[148] . "', '" . $value[149] . "', '" . $value[150] . "', '" . $value[151] . "');";
-//        $query = $dbconfig->update($sqltxt);
-        print_r($value);
-        die;
+
+        $query = $dbconfig->update($sqltxt);
+//        print_r($value);   die;
     }
 }
 
-
+print_r($result);
+die;
 
 
 
