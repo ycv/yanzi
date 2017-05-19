@@ -1,12 +1,15 @@
 <?php
 
+header("Content-Type: text/html; charset=UTF-8");
+require '../../PDO_link_database.php';
+$dbconfig = new dbtemplate();
 /*
   phpexcel读取大文件demo
   Author URI: http://www.01happy.com
  */
 //memory_get_usage — 返回分配给 PHP 的内存量 
 //返回当前分配给你的 PHP 脚本的内存量，单位是字节（byte）。 
-echo memory_get_usage();
+//echo memory_get_usage();
 
 include_once __DIR__ . '/../../Third/PHPExcel/Classes/PHPExcel.php';
 
@@ -45,7 +48,6 @@ class PHPExcelReadFilter implements PHPExcel_Reader_IReadFilter {
 function readFromExcel($excelFile, $excelType = null, $startRow = 1, $endRow = null) {
     $excelReader = \PHPExcel_IOFactory::createReader("Excel2007");
     $excelReader->setReadDataOnly(true);
-
     //如果有指定行数，则设置过滤器
     if ($startRow && $endRow) {
         $perf = new PHPExcelReadFilter();
@@ -74,12 +76,32 @@ function readFromExcel($excelFile, $excelType = null, $startRow = 1, $endRow = n
 
 $excelFile = __DIR__ . '/data/payment.xlsx';
 $excelFile = __DIR__ . '/data/ssss.xlsx';
-$result = readFromExcel($excelFile, null, 1, 30);
-echo "<br />";
-echo memory_get_usage();
+$result = readFromExcel($excelFile, null, 1, 5);
+//echo "<br />";
+//echo memory_get_usage();
 echo "<pre>";
-echo "<br />";
-print_r($result);
+//print_r($result);
+
+
+
+foreach ($result as $key => $value) {
+    if ($key > 4) {
+        $sqltxt = "INSERT INTO `yanzi`.`yii2test_projectreport` "
+                . "(`id`, `number`, `entry_name`, `region`, `address`, `Industry_owned`, "
+                . "`Investment_unit`, `Scale`, `Party_a_contact`, `Telephone`, `Design_unit`, "
+                . "`Designer`, `Design_Institute_tracking_people`, `Engineering_progress`,"
+                . " `medium_voltage_id`, `Low_voltage_cabinet_id`, `Box_three_id`, `Visiting_record`, "
+                . "`Update_date`, `KA_estate_agent`, `Join_TOP`, `Exit_Top`) VALUES "
+                . "(NULL, '" . $value[1] . "', '" . $value[2] . "', '" . $value[3] . "', '" . $value[4] . "', '" . $value[5] . "',"
+                . " '" . $value[6] . "', '" . $value[7] . "', '" . $value[8] . "', '" . $value[9] . "', '" . $value[10] . "',"
+                . " '" . $value[11] . "', '" . $value[12] . "', '" . $value[13] . "',"
+                . " '1', '1', '1', '" . $value[147] . "',"
+                . " '" . $value[148] . "', '" . $value[149] . "', '" . $value[150] . "', '" . $value[151] . "');";
+//        $query = $dbconfig->update($sqltxt);
+        print_r($value);
+        die;
+    }
+}
 
 
 
