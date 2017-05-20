@@ -18,7 +18,8 @@ $.fn.mergeAttributes = function (src) {
             }
         }
     }
-}
+};
+
 $.fn.FrozenTable = function (iRowHead, iRowFoot, iColLeft) {
     var oTable = $(this);
     var oTableId = oTable.attr("id");
@@ -93,6 +94,7 @@ $.fn.FrozenTable = function (iRowHead, iRowFoot, iColLeft) {
         }
     });
 };
+
 $.fn.CloneTable = function (oSrcTable, iRowStart, iRowEnd, iColumnEnd) {
     var iWidth = 0, iHeight = 0;
     $(this).mergeAttributes(oSrcTable);
@@ -163,7 +165,9 @@ $.fn.CloneTable = function (oSrcTable, iRowStart, iRowEnd, iColumnEnd) {
                  jWidth += oidTd.outerWidth(true);
                  }*/
 
-                newTd.height(oidTd.outerHeight(true));
+                newTd.height(20);
+
+                //newTd.height(oidTd.outerHeight(true));
                 newTd.width(oidTd.outerWidth(true));
                 jWidth += oidTd.outerWidth(true);
                 iWidth = Math.max(iWidth, jWidth);
@@ -174,4 +178,4 @@ $.fn.CloneTable = function (oSrcTable, iRowStart, iRowEnd, iColumnEnd) {
     }
     $(this).width(iWidth);
     $(this).height(iHeight);
-}
+};
