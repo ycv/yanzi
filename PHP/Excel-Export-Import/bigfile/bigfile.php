@@ -85,6 +85,7 @@ $excelFile = __DIR__ . '/data/report.xlsx';
 
 $result = readFromExcel($excelFile, null, 4, 9);
 echo count($result);
+die;
 //echo memory_get_usage();
 
 foreach ($result as $key => $value) {
