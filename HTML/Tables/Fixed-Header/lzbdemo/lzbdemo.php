@@ -1,16 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" media="screen" href="reportlist.css" />
-
-
-
         <link href="css/960.css" rel="stylesheet" media="screen" />
         <link href="css/defaultTheme.css" rel="stylesheet" media="screen" />
         <link href="css/myTheme.css" rel="stylesheet" media="screen" />
         <script src="jquery/jquery-1.7.2.js"></script>
         <script src="jquery/jquery.fixedheadertable.js"></script>
-
         <script>
             $(document).ready(function () {
                 $('#myTable05').fixedHeaderTable({footer: true, cloneHeadToFoot: true, altClass: 'odd', fixedColumns: 1, });
