@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="jquery.dataTables.css">
-        <link rel="stylesheet" type="text/css" href="fixedColumns.dataTables.css">
-        <script type="text/javascript" language="javascript" src="jquery-1.12.3.min.js"></script>
-        <script type="text/javascript" language="javascript" src="jquery.dataTables.min.js"></script>
-        <script type="text/javascript" language="javascript" src="dataTables.fixedColumns.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="css/dataTables.jqueryui.min.css">
+        <link rel="stylesheet" type="text/css" href="css/fixedColumns.jqueryui.min.css">
+
+        <script type="text/javascript" language="javascript" src="../jquery-1.12.3.min.js"></script>
+        <script type="text/javascript" language="javascript" src="../jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="../dataTables.jqueryui.min.js"></script>
+        <script type="text/javascript" language="javascript" src="../dataTables.fixedColumns.min.js"></script>
+
+
         <script type="text/javascript" language="javascript" class="init">
             $(document).ready(function () {
                 var table = $('#example').DataTable({
@@ -17,13 +23,12 @@
                         {width: '20%', targets: 0}
                     ],
                     fixedColumns: {
-                        leftColumns: 2
+                        leftColumns: 1
                     }
                 });
             });
         </script>
         <style type="text/css" class="init">
-
             /* Ensure that the demo table scrolls */
             th, td {
                 white-space: nowrap;
@@ -41,7 +46,7 @@
         <table id="example" class="stripe row-border order-column" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th rowspan="2">Name</th>
+                    <th rowspan="2">Nawwme</th>
                     <th colspan="2">HR Information</th>
                     <th colspan="3">Contact</th>
                 </tr>
