@@ -41,16 +41,6 @@
     box-shadow: 0 0 3px #6495ed;
 }
 
-.myTableWrapper {
-    width: 800px;
-    height: 500px;
-}
-
-.height250 {
-    height: 250px;
-    overflow-x: auto;
-    overflow-y: auto;
-}
 
 .fancyTable td, .fancyTable th {
     /* appearance */
