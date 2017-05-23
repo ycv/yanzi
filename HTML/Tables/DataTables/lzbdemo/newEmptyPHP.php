@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-
         <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="css/dataTables.jqueryui.css">
         <link rel="stylesheet" type="text/css" href="css/fixedColumns.jqueryui.css">
