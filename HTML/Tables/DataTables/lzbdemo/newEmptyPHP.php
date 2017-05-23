@@ -28,6 +28,15 @@
             });
         </script>
         <style type="text/css" class="init">
+
+            body {
+                font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Arial, Helvetica, sans-serif;
+                margin: 0;
+                padding: 0;
+                color: #333;
+                background-color: #fff;
+            }
+
             /* Ensure that the demo table scrolls */
             th, td {
                 white-space: nowrap;
@@ -41,7 +50,7 @@
 
         </style>
     </head>
-    <body class="dt-example">
+    <body>
         <table id="example" class="stripe row-border order-column" cellspacing="0" width="100%">
             <thead>
                 <tr>
