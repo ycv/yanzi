@@ -81,11 +81,56 @@ function readFromExcel($excelFile, $excelType = null, $startRow = 1, $endRow = n
     return $data;
 }
 
-$excelFile = __DIR__ . '/data/report.xlsx';
+echo "<pre>";
+if (isset($_FILES["excelfile"]) && $_FILES["excelfile"]) {
+    $filepath = __DIR__ . '/data/excel/' . date('Y/m/d', time()) . '/';
+    if (mkDirs($filepath)) {
+        //生成随机文件名
+        $ad_randname = generateRandFileName();
+        //获取文件后缀名
+        $fileSuffixName = fileext($_FILES['excelfile']['name']);
+        //文件生成路径
+        $uploadfile = $filepath . $ad_randname . "." . $fileSuffixName;
+        if (move_uploaded_file($_FILES['excelfile']['tmp_name'], $uploadfile)) {
+            $result = readFromExcel($uploadfile, null, 4, 9);
+            foreach ($result as $key => $value) {
+                //中压
+                //WMTS => 17
+                //
+                //低压柜
+                //ATMT-3A/3B => 26                  万高推荐型号 => 28
+                //首端ATS => 34                     万高推荐型号 => 36 
+                //WEFP/WEFD =>  42                  万高推荐型号 =>  44
+                //iSCB =>  50                       万高推荐型号 =>  52
+                //SPD =>  58                        万高推荐型号 =>  60
+                //WGR/WG =>  66                     万高推荐型号 =>  68
+                //
+                //三箱
+                //末端ATS => 84                     万高推荐型号 => 86
+                //WEFP/WEFD/WAFD => 92              万高推荐型号 => 94
+                //WPFP => 100                       万高推荐型号 => 102
+                //ISCB => 108                       万高推荐型号 => 110
+                //SPD/SPMS => 116                   万高推荐型号 => 118
+                //WGR/WG => 124                     万高推荐型号 => 126
+                //iARC => 132                       万高推荐型号 => 134
 
-$result = readFromExcel($excelFile, null, 4, 9);
-echo count($result);
-die;
+                echo "<pre>";
+                print_r($result);
+                die;
+            }
+            echo count($result);
+            die;
+        } else {
+            echo "上传失败!";
+            die;
+        }
+    } else {
+        echo "error";
+        die;
+    }
+}
+
+
 //echo memory_get_usage();
 
 foreach ($result as $key => $value) {
@@ -180,8 +225,28 @@ echo "<pre>";
 print_r($result);
 die;
 
+function mkDirs($path) {
+    if (!is_dir($path)) {
+        $res = mkdir(iconv("UTF-8", "GBK", $path), 0777, true);
+        if ($res) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
 
+function generateRandFileName() {
+    $tokenLen = 40;
+    if (@file_exists('/dev/urandom')) { // Get 100 bytes of random data
+        $randomData = file_get_contents('/dev/urandom', false, null, 0, 100) . uniqid(mt_rand(), true);
+    } else {
+        $randomData = mt_rand() . mt_rand() . mt_rand() . mt_rand() . microtime(true) . uniqid(mt_rand(), true);
+    }
+    return substr(hash('sha512', $randomData), 0, $tokenLen);
+}
 
-
-
-
+function fileext($filename) {
+    return substr(strrchr($filename, '.'), 1);
+}
