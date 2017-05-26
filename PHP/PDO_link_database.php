@@ -13,7 +13,7 @@ class dbconfig {
     private static $port = '3306';
     private static $username = 'root';
     private static $password = '111111';
-    private static $dbname = 'yanzi';
+    private static $dbname = 'bms';
     private static $charset = 'utf8';
     private static $dsn;
 
