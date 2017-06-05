@@ -17,9 +17,9 @@
     <body>
         <input hidden2 value="" name="prompt_VAL"/>
 
-        <button class="  demo-1">Alert Dialog Box</button>
-        <button class="  demo-2">Prompt Dialog Box</button>
-        <button class="  demo-3">Prompt Dialog Box</button>
+        <button class="demo-1">Alert Dialog Box</button>
+        <button class="demo-2">Prompt Dialog Box</button>
+        <button class="demo-3">Prompt Dialog Box</button>
 
         <script type="text/javascript" src="../../jquery-1.11.3.js"></script>
         <script type="text/javascript" src="src/jquery.gDialog.js"></script>
@@ -32,13 +32,22 @@
                 });
             });
             $('.demo-2').click(function () {
-                $.gDialog.prompt("Your website", "asdcom", {
+                $.gDialog.prompt("Your website", "", {
                     title: "Prompt Dialog Box",
                     required: true,
                     animateIn: "rollIn",
                     animateOut: "rollOut"
                 });
             });
+            $('.demo-3').click(function () {
+                $.gDialog.confirm("Are You Sure?", {
+                    title: "Confirm Dialog Box",
+                    animateIn: "bounceInDown",
+                    animateOut: "bounceOutUp"
+                });
+            });
+
+
 
             function promptEvent_T(v) {
                 $("input[name='prompt_VAL']").val(v);
@@ -48,14 +57,6 @@
             function promptEvent_F() {
                 console.log("11");
             }
-
-            $('.demo-3').click(function () {
-                $.gDialog.confirm("Are You Sure?", {
-                    title: "Confirm Dialog Box",
-                    animateIn: "bounceInDown",
-                    animateOut: "bounceOutUp"
-                });
-            });
         </script>
 
     </body>

@@ -58,7 +58,7 @@
     m.tplBase += "</div>";
 
     m.tplHeader = "<div class=\"gdialog-header\">{{title}}</div>";
-    m.tplInput = "<div class=\"gdialog-field\"><input type=\"text\"></div>";
+    m.tplInput = "<div class=\"gdialog-field\"><input placeholder=\"请输入数据\" type=\"text\"></div>";
 
     m.getTeplate = function (type, message, options) {
         var t = m.tplBase;
