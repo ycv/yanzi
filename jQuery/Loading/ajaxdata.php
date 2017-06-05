@@ -3,7 +3,7 @@
 $d = array();
 
 //sleep(秒) usleep(毫秒) 让它睡上一会。
-sleep(3);
+sleep(2);
 for ($i = 0; $i < 20; $i++) {
     $d[$i]["name"] = GetRandStr(5);
     $d[$i]["age"] = rand(1, 99);

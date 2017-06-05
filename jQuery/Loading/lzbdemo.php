@@ -35,14 +35,14 @@
                 width: 300px;
                 padding: 20px;
                 position: fixed;
-                top: 50%;
+                top: 45%;
                 left: 0;
                 right: 0;
                 z-index: 111113;
                 -moz-border-radius: 20px;
                 -webkit-border-radius: 20px;
                 border-radius: 20px;
-                margin: -30% auto 0;
+                margin:0 auto;
             }
         </style>
         <script type="text/javascript" src="../jquery-1.11.3.js"></script>
