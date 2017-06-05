@@ -57,7 +57,9 @@
         </div>
         <table id="t_data"></table>
 
-
+        <div style="margin:0 auto;text-align: center;"> 
+            <button id="ssa"  >获取数据</button>
+        </div>
     </body>
 
     <script language="javascript">
@@ -90,10 +92,18 @@
                         Hidden_Layer_OFF();
                     },
                     error: function () {
-                        console.log("网络连接飒飒 失败请重试！");
+                        Hidden_Layer_OFF();
+                        t_dataHTML = "网络连接飒飒 失败请重试！";
+                        $("#t_data").html(t_dataHTML);
+                        console.log(t_dataHTML);
                     }
                 });
             }
+
+            $("#ssa").click(function () {
+                Hidden_Layer_ON();
+                getdata();
+            });
         });
 
 
