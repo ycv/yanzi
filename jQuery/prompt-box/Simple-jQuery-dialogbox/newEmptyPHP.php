@@ -27,7 +27,7 @@
         </div>
 
         <script type="text/javascript" src="../../jquery-1.11.3.js"></script>
-        <script type="text/javascript" src="src/jquery.gDialog.js"></script>
+        <script type="text/javascript" src="src/jquery.gDialog.min.js"></script>
         <script type="text/javascript">
             $('.demo-1').click(function () {
                 $.gDialog.alert("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse libero erat, scelerisque sit amet dolor nec, euismod feugiat massa.", {
