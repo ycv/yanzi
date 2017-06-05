@@ -27,7 +27,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: url("../hei.png") repeat;
+                background: url("../loadingIMG//hei.png") repeat;
                 z-index: 111112;
             }
             .Hidden_Layer{

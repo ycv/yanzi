@@ -27,7 +27,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: url("hei.png") repeat;
+                background: url("loadingIMG/hei.png") repeat;
                 z-index: 111112;
             }
             .Hidden_Layer_IMG {
@@ -49,7 +49,7 @@
     </head>
     <body>
         <div class="Hidden_Layer_DIV"></div>
-        <div class="Hidden_Layer_IMG"><img src="loading.gif" style="width:100%;height: 100%;"/></div>
+        <div class="Hidden_Layer_IMG"><img src="loadingIMG/loading.gif" style="width:100%;height: 100%;"/></div>
 
 
 
