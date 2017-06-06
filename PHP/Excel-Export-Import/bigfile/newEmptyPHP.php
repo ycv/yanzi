@@ -1,4 +1,4 @@
-<script src="../../jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../../../jQuery/jquery-1.11.0.js" type="text/javascript"></script>
 <script type="text/javascript">
 
     function getSelectP() {

@@ -75,7 +75,12 @@ if (isset($_FILES['excelfile']) && $_FILES['excelfile']) {
         $uploadfile = $filepath . $randExcelname . "." . $fileSuffixName;
 
         if (move_uploaded_file($_FILES['excelfile']['tmp_name'], $uploadfile)) {
-            $result = $FromExcel->readFromExcel($uploadfile, 5, 61);
+            $result = $FromExcel->readFromExcel($uploadfile, 5, 6);
+            echo "<pre>";
+            var_dump($result);
+            die;
+
+
             $excelDatas = [];
             if (count($result) > 0) {
                 $excelDatas = $FromExcel->getArrayData($result, $_POST);
