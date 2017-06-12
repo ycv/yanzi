@@ -15,6 +15,6 @@ function getdata($n) {
 }
 
 $d = getdata(1);
-echo "<pre>";
-var_dump($d);
-die;
+//echo "<pre>";
+//var_dump($d);
+//die;
