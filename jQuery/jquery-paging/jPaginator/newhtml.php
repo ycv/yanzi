@@ -13,6 +13,8 @@
         <table>
 
         </table>
-        <div id="suobainq"></div>
+        <div style="border: 1px solid #0000f1;">
+            <div id="suobainq" style="width: 430px;margin:0 auto;"></div>
+        </div>
     </body>
 </html>
