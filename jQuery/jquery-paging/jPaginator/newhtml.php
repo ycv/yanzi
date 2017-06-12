@@ -11,9 +11,7 @@
     </head>
     <body>
         <table>
-            <?php foreach(){
-            
-            }?>
+
         </table>
         <div id="suobainq"></div>
     </body>
